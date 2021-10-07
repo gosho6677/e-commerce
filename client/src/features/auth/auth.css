@@ -1,0 +1,22 @@
+.login-register-section {
+    width: 40%;
+    margin: 2% auto;
+}
+
+.login-register-box {
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+.login-register-input {
+    width: 320px;
+}
+
+.login-register-btn {
+    margin: 1rem 0;
+    /* width: 50%; */
+    height: 56px;
+}   
