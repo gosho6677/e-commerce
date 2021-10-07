@@ -8,11 +8,16 @@ import Dashboard from './features/dashboard/Dashboard';
 import Login from './features/auth/Login';
 import Register from './features/auth/Register';
 import Navigation from './features/navigation/Navigation';
+import { useSelector } from 'react-redux';
+import ErrorBox from './features/errors/ErrorBox';
 
 const App = () => {
+    const error = useSelector(state => state.user.error);
+
     return (
         <StyledEngineProvider injectFirst>
             <CssBaseline />
+            {error && <ErrorBox error={error} />}
             <Navigation />
             <Switch>
                 <Route path='/' exact component={Dashboard} />

@@ -6,14 +6,27 @@ import TextField from '@mui/material/TextField';
 import './auth.css';
 
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginThunk } from './authSlice';
+import { useEffect } from 'react';
 
-const Login = () => {
+const Login = ({ history }) => {
+    const dispatch = useDispatch();
 
-    const registerHandler = e => {
+    const status = useSelector(state => state.user.status);
+
+    useEffect(() => {
+        if (status === 'succeeded') {
+            history.push('/');
+        }
+    }, [history, status]);
+
+    const loginHandler = e => {
         e.preventDefault();
 
-        console.log(e.target.email.value)
-        console.log(e.target.password.value)
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        dispatch(loginThunk({ email, password }));
     };
 
     return (
@@ -21,7 +34,7 @@ const Login = () => {
             <Typography variant='h4' sx={{ textAlign: 'center', pt: '2%' }}>
                 Login
             </Typography>
-            <Box onSubmit={registerHandler} component='form' className='login-register-box'>
+            <Box onSubmit={loginHandler} component='form' className='login-register-box'>
                 <TextField
                     margin='normal'
                     required
@@ -49,8 +62,8 @@ const Login = () => {
                 >
                     Sign in
                 </Button>
-                <Link to='/auth/register' style={{ textAlign: 'center', marginBottom: '10px'}}>
-                  Don't have an account? Sign Up
+                <Link to='/auth/register' style={{ textAlign: 'center', marginBottom: '10px' }}>
+                    Don't have an account? Sign Up
                 </Link>
             </Box>
         </Paper>

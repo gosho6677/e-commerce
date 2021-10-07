@@ -8,15 +8,15 @@ const tokenBlackList = [];
 
 module.exports = () => (req, res, next) => {
     req.auth = {
-        register: async ({ email, username, password }) => {
-            const token = await registerToken(email, username, password);
+        register: async ({ email, password, imageUrl = '' }) => {
+            const token = await registerToken(email, password, imageUrl);
             res.status(201).json({ ok: true, token });
         },
         login: async ({ email, password }) => {
             const token = await loginToken(email, password);
             res.json({ ok: true, token });
         },
-        logout: async () => {
+        logout: () => {
             tokenBlackList.push(req.headers['authorization']);
             console.log(`Token ${req.headers['authorization'].slice(0,25)}... blacklisted. ${tokenBlackList.length} total.`);
             res.json({ ok: true });
@@ -30,9 +30,9 @@ module.exports = () => (req, res, next) => {
     }
 };
 
-async function registerToken(email, username, password) {
+async function registerToken(email, password, imageUrl = '') {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await authServices.createUser(email, username, hashedPassword);
+    const user = await authServices.createUser(email, hashedPassword, imageUrl);
     return createToken(user);
 }
 
@@ -50,9 +50,12 @@ async function loginToken(email, password) {
 async function createToken(user) {
     const userViewModel = {
         _id: user._id,
-        username: user.username,
         email: user.email
     };
+    
+    if(user.imageUrl) {
+        userViewModel.imageUrl = user.imageUrl;
+    }
 
     const token = jwt.sign(userViewModel, TOKEN_SECRET, { expiresIn: '12h' });
     return token;

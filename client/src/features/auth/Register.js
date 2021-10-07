@@ -6,15 +6,30 @@ import TextField from '@mui/material/TextField';
 import './auth.css';
 
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerThunk } from './authSlice';
+import { useEffect } from 'react';
 
-const Register = () => {
+const Register = ({ history }) => {
+    const dispatch = useDispatch();
+    const status = useSelector(state => state.user.status);
 
-    const loginHandler = e => {
+    // acts as route guard and redirect on successful register
+    useEffect(() => {
+        if(status === 'succeeded') {
+            history.push('/');
+        }
+    }, [history, status]);
+
+    const registerHandler = e => {
         e.preventDefault();
 
-        console.log(e.target.email.value)
-        console.log(e.target.password.value)
-        console.log(e.target.imageUrl.value)
+        let email = e.target.email.value;
+        let password = e.target.password.value;
+        let rePass = e.target.rePass.value;
+        let imageUrl = e.target.imageUrl.value;
+
+        dispatch(registerThunk({ email, password, rePass, imageUrl }));
     };
 
     return (
@@ -22,7 +37,7 @@ const Register = () => {
             <Typography variant='h4' sx={{ textAlign: 'center', pt: '2%' }}>
                 Register
             </Typography>
-            <Box onSubmit={loginHandler} component='form' className='login-register-box'>
+            <Box onSubmit={registerHandler} component='form' className='login-register-box'>
                 <TextField
                     margin='normal'
                     required
@@ -46,6 +61,15 @@ const Register = () => {
                 <TextField
                     margin='normal'
                     required
+                    className='login-register-input'
+                    name='rePass'
+                    label='Repeat Password'
+                    type='password'
+                    id='rePass'
+                    autoComplete='current-password'
+                />
+                <TextField
+                    margin='normal'
                     className='login-register-input'
                     name='imageUrl'
                     label='Photo URL e.g. https://someimage.com'
