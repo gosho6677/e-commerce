@@ -1,5 +1,5 @@
 .nav-buttons {
-    text-decoration: none;
-    color: white;
+    text-decoration: inherit;
+    color: inherit;
     margin-left: 5px;
 }

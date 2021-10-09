@@ -1,0 +1,23 @@
+/* .dashboard-items-container {
+    border: 2px solid black;
+} */
+
+.dashboard-items-item {
+    /* border: 2px solid black; */
+    margin: 10px;
+}
+
+.dashboard-items-card {
+    margin: 10px;
+}
+
+.dashboard-items-card-img {
+    object-fit: contain;
+    /* height: 100px; */
+}
+
+.dashboard-items-card-btn {
+    text-decoration: inherit;
+    color: black;
+    cursor: pointer;
+}

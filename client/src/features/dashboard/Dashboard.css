@@ -1,0 +1,32 @@
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* margin: 1rem; */
+    max-width: 100vw;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.dashboard-categories {
+    /* flex-grow: 1; */
+    width: 250px;
+    margin: 10px;
+}
+
+.dashboard-items {
+    flex-grow: 1;
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+}
+
+.dashboard-items-stack {
+    /* margin: 5px; */
+    padding: 5px;
+    border-bottom: 2px solid #EAEAEA;
+}
+
+.dashboard-items-total {
+    padding: 5px;
+}
