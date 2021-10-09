@@ -1,8 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { removeUserError } from '../auth/authSlice';
+import { removeItemError } from '../items/itemsSlice';
 import './ErrorBox.css';
 
-const ErrorBox = ({ error }) => {
+const ErrorBox = ({ itemsError, userError }) => {
     const dispatch = useDispatch();
     
     // useEffect(() => {
@@ -18,11 +19,13 @@ const ErrorBox = ({ error }) => {
 
     const errorHandler = () => {
         dispatch(removeUserError());
+        dispatch(removeItemError());
     };
 
     return (
         <div onClick={errorHandler} className="error">
-            {error}
+            {itemsError && itemsError}
+            {userError && userError}
         </div>
     );
 };

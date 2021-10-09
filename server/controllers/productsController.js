@@ -3,34 +3,38 @@ const { body, validationResult } = require('express-validator');
 const { isAuthorized } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
-    // const posts = await req.data.getAllPosts(query);
-    res.json({ ok: true, posts });
+    const products = await req.data.getAllProducts();
+    res.json({ ok: true, products });
 });
 
 router.post('/',
     isAuthorized(),
-    body('title', 'Title must be atleast 3 characters long.').isLength({ min: 3 }),
-    body('description', 'Description must be atleast 10 characters long.').isLength({ min: 10 }),
+    body('name', 'Title must be atleast 3 characters long.').isLength({ min: 3 }),
+    body('description', 'Description must be atleast 5 characters long.').isLength({ min: 5 }),
+    body('price').custom(val => {
+        if (val < 0) {
+            throw new Error('Price must be greater than 0!');
+        }
+        return true;
+    }),
     body('imageUrl', 'Image URL must be a valid URL.').isURL(),
     async (req, res) => {
         const { errors } = validationResult(req);
-        const time = Date.now();
 
-        const info = {
-            title: req.body.title,
+        const payload = {
+            name: req.body.name,
             description: req.body.description,
+            price: req.body.price,
             imageUrl: req.body.imageUrl,
-            owner: req.user._id,
-            iat: time,
-            unixTime: time,
+            category: req.body.category,
         };
 
         try {
             if (errors.length) {
                 throw new Error(errors.map(e => e.msg).join('\n'));
             }
-            // const post = await req.data.createPost(info);
-            res.status(201).json({ ok: true, post });
+            const product = await req.data.createProduct(payload);
+            res.status(201).json({ ok: true, product });
         } catch (err) {
             res.status(400).json({ ok: false, error: err.message });
         }

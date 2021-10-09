@@ -10,17 +10,22 @@ import Register from './features/auth/Register';
 import Navigation from './features/navigation/Navigation';
 import { useSelector } from 'react-redux';
 import ErrorBox from './features/errors/ErrorBox';
+import Create from './features/items/Create';
 
 const App = () => {
-    const error = useSelector(state => state.user.error);
+    const userError = useSelector(state => state.user.error);
+    const itemsError = useSelector(state => state.items.error);
 
     return (
         <StyledEngineProvider injectFirst>
             <CssBaseline />
-            {error && <ErrorBox error={error} />}
+            {(itemsError || userError) && <ErrorBox itemsError={itemsError} userError={userError} />}
             <Navigation />
             <Switch>
                 <Route path='/' exact component={Dashboard} />
+                {/* <Route path='/cart' exact component={Cart} /> */}
+                <Route path='/items/create' exact component={Create} />
+                {/* <Route path='/items/details/:id' exact component={ItemDetails} /> */}
                 <Route path='/auth/login' exact component={Login} />
                 <Route path='/auth/register' exact component={Register} />
                 <Route path='/test' exact component={Counter} />

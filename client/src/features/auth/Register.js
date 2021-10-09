@@ -6,20 +6,16 @@ import TextField from '@mui/material/TextField';
 import './auth.css';
 
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerThunk } from './authSlice';
-import { useEffect } from 'react';
+import useIsGuest from '../../hooks/useIsGuest';
 
 const Register = ({ history }) => {
     const dispatch = useDispatch();
-    const status = useSelector(state => state.user.status);
 
     // acts as route guard and redirect on successful register
-    useEffect(() => {
-        if(status === 'succeeded') {
-            history.push('/');
-        }
-    }, [history, status]);
+    // since auth is not persistent it just redirects atm
+    useIsGuest();
 
     const registerHandler = e => {
         e.preventDefault();

@@ -1,0 +1,29 @@
+.create-container {
+    width: 80%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.create-box {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-content: center;
+    width: 400px;
+    gap: 20px;
+}
+
+.create-title {
+    text-align: center;
+}
+
+.create-textarea {
+    padding: 20px;
+}
+
+.create-btn {
+    margin-bottom: .5rem;
+    height: 56px;
+}

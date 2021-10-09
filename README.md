@@ -1,8 +1,11 @@
 # TODO LIST
 - [x] Authentication with JWT
-- [ ] Main page template
-- [ ] decide whether user offers or admin only offers
-- [ ] Create page
+- [x] Main page template
+- [x] add create item template
+- [x] add create item functionality
+- [x] Create page
+- [ ] show create page only for admin
+- [ ] add get all posts functionality
 - [ ] test data
 - [ ] Details page
 - [ ] cart

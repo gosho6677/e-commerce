@@ -1,5 +1,12 @@
 .nav-buttons {
     text-decoration: inherit;
     color: inherit;
-    margin-left: 5px;
+    /* margin-left: 5px; */
+    margin: 0 5px;
+    padding: 0 5px;
+}
+
+.nav-cart {
+    padding: 10px;
+    margin: 0 10px;
 }

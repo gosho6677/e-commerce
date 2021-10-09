@@ -6,20 +6,13 @@ import TextField from '@mui/material/TextField';
 import './auth.css';
 
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginThunk } from './authSlice';
-import { useEffect } from 'react';
+import useIsGuest from '../../hooks/useIsGuest';
 
 const Login = ({ history }) => {
     const dispatch = useDispatch();
-
-    const status = useSelector(state => state.user.status);
-
-    useEffect(() => {
-        if (status === 'succeeded') {
-            history.push('/');
-        }
-    }, [history, status]);
+    useIsGuest();
 
     const loginHandler = e => {
         e.preventDefault();

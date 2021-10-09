@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './Navigation.css';
 
 import { Link } from 'react-router-dom';
@@ -27,9 +28,15 @@ const Navigation = () => {
                     </Typography>
                     {status === 'succeeded'
                         ? <>
+                            <Link to='/cart' className='nav-buttons nav-cart' >
+                                <ShoppingCartIcon />
+                            </Link>
                             <Typography component='p'>
                                 Welcome, {user.email}!
                             </Typography>
+                            <Link to='/items/create' className='nav-buttons' >
+                                CREATE
+                            </Link>
                             <Button onClick={logoutHandler} className='nav-buttons' color='inherit'>
                                 Logout
                             </Button>
