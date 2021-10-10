@@ -3,8 +3,12 @@ const { body, validationResult } = require('express-validator');
 const { isAuthorized } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
-    const products = await req.data.getAllProducts();
-    res.json({ ok: true, products });
+    try {
+        const products = await req.data.getAllProducts();
+        res.json({ ok: true, products });
+    } catch (err) {
+        res.status(500).json({ ok: false, error: err.message });
+    }
 });
 
 router.post('/',
