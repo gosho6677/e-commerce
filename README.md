@@ -5,9 +5,10 @@
 - [x] add create item functionality
 - [x] Create page
 - [ ] show create page only for admin
-- [ ] add get all posts functionality
-- [ ] test data
-- [ ] Details page
+- [x] add get all posts functionality
+- [x] test data
+- [x] Details page template
+- [ ] Details page functionality
 - [ ] cart
 - [ ] sort
 - [ ] search

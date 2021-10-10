@@ -11,6 +11,7 @@ import Navigation from './features/navigation/Navigation';
 import { useSelector } from 'react-redux';
 import ErrorBox from './features/errors/ErrorBox';
 import Create from './features/items/Create';
+import Details from './features/items/Details';
 
 const App = () => {
     const userError = useSelector(state => state.user.error);
@@ -25,7 +26,7 @@ const App = () => {
                 <Route path='/' exact component={Dashboard} />
                 {/* <Route path='/cart' exact component={Cart} /> */}
                 <Route path='/items/create' exact component={Create} />
-                {/* <Route path='/items/details/:id' exact component={ItemDetails} /> */}
+                <Route path='/items/details/:id' exact component={Details} />
                 <Route path='/auth/login' exact component={Login} />
                 <Route path='/auth/register' exact component={Register} />
                 <Route path='/test' exact component={Counter} />

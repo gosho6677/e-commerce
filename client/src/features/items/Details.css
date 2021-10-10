@@ -1,0 +1,31 @@
+.details-container {
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.details-img-container {
+    width: 700px;
+    object-fit: contain;
+}
+
+.details-img {
+    max-width: 100%;
+}
+
+.details-item-content {
+    width: 500px;
+    padding: 1rem;
+}
+
+.details-item-description {
+    margin: 1rem 0;
+    text-align: justify;
+}
+
+.details-price {
+    font-size: xx-large;
+    margin: 1rem 0;
+}
