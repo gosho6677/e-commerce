@@ -13,7 +13,9 @@ const Details = ({ match }) => {
     const status = useSelector(state => state.user.status);
     const itemId = match.params.id;
     const item = useSelector(state => selectPostById(state, itemId));
-    console.log(item)
+    // TODO: fix problem on page reload to fetch the selected 
+    // id instead to select it through redux store
+    
     return (
         <Paper elevation={3} className='details-container'>
             <Box className='details-img-container'>
@@ -28,7 +30,7 @@ const Details = ({ match }) => {
                 </Typography>
                 <Divider />
                 <Stack direction='column' alignItems='center'>
-                    <Typography className='details-price'>{item?.price}$</Typography>
+                    <Typography className='details-price'>${item?.price}</Typography>
                     <Divider />
                     {/* shows btn if user is logged(succeeded) */}
                     {status === 'succeeded'

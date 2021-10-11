@@ -8,7 +8,8 @@
 - [x] add get all posts functionality
 - [x] test data
 - [x] Details page template
-- [ ] Details page functionality
-- [ ] cart
+- [x] Details page functionality
+- [ ] add cart template
+- [ ] add cart functionality
 - [ ] sort
 - [ ] search

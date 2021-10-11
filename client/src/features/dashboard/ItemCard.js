@@ -25,7 +25,7 @@ const ItemCard = ({ item }) => {
                     </Typography>
                     <Divider />
                     <Typography variant='h4' color='text.primary' sx={{ textAlign: 'center', mt: 2 }}>
-                        {item.price}$
+                        ${item.price}
                     </Typography>
                 </CardContent>
                 <CardActions>
