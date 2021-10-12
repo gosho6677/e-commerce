@@ -8,20 +8,33 @@ import Dashboard from './features/dashboard/Dashboard';
 import Login from './features/auth/Login';
 import Register from './features/auth/Register';
 import Navigation from './features/navigation/Navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ErrorBox from './features/errors/ErrorBox';
 import Create from './features/items/Create';
 import Details from './features/items/Details';
 import Cart from './features/cart/Cart';
+import { useEffect } from 'react';
+import { getCartThunk } from './features/cart/cartSlice';
 
 const App = () => {
+    const userStatus = useSelector(state => state.user.status);
+    const cartStatus = useSelector(state => state.cart.status);
     const userError = useSelector(state => state.user.error);
     const itemsError = useSelector(state => state.items.error);
+    const cartError = useSelector(state => state.cart.error);
+    const dispatch = useDispatch();
+
+    // get existing or new cart for logged users
+    useEffect(() => {
+        if(userStatus === 'succeeded' && cartStatus === 'idle') {
+            dispatch(getCartThunk());
+        }
+    }, [userStatus, cartStatus, dispatch]);
 
     return (
         <StyledEngineProvider injectFirst>
             <CssBaseline />
-            {(itemsError || userError) && <ErrorBox itemsError={itemsError} userError={userError} />}
+            {(itemsError || userError) && <ErrorBox itemsError={itemsError} userError={userError} cartError={cartError} />}
             <Navigation />
             <Switch>
                 <Route path='/' exact component={Dashboard} />

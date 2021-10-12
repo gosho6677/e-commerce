@@ -18,7 +18,7 @@ module.exports = () => (req, res, next) => {
         },
         logout: () => {
             tokenBlackList.push(req.headers['authorization']);
-            console.log(`Token ${req.headers['authorization'].slice(0,25)}... blacklisted. ${tokenBlackList.length} total.`);
+            console.log(`Token ${req.headers['authorization'].slice(0, 25)}... blacklisted. ${tokenBlackList.length} total.`);
             res.json({ ok: true });
         }
     };
@@ -52,8 +52,8 @@ async function createToken(user) {
         _id: user._id,
         email: user.email
     };
-    
-    if(user.imageUrl) {
+
+    if (user.imageUrl) {
         userViewModel.imageUrl = user.imageUrl;
     }
 
@@ -63,7 +63,6 @@ async function createToken(user) {
 
 function verifyToken(req) {
     const token = req.headers['authorization'];
-
     if (token) {
         try {
             const verifiedData = jwt.verify(token, TOKEN_SECRET);

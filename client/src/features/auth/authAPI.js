@@ -34,7 +34,6 @@ export const login = async (body) => {
     if (resp.ok) {
         token = resp.token;
     }
-
     return resp;
 };
 

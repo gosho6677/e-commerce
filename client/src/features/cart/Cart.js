@@ -12,7 +12,14 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import './Cart.css';
 
+// import { useSelector, useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
+
 const Cart = () => {
+    // const status = useSelector(state => state.cart.status);
+    // const cart = useSelector(state => state.cart.cart);
+    // const dispatch = useDispatch();
+
     return (
         <Paper elevation={3} className='cart-container'>
             <Grid container direction='column' className='cart-item-container'>
