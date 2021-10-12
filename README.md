@@ -10,8 +10,8 @@
 - [x] Details page template
 - [x] Details page functionality
 - [x] add cart template
-- [ ] add get cart FE/BE
-- [ ] add insert into cart FE/BE
+- [x] add get cart FE/BE
+- [x] add insert into cart FE/BE
 - [ ] add delete from cart FE/BE
 - [ ] add transition to purchase template from cart view
 - [ ] add convert to Order from Cart (deletes cart and creates new Order)

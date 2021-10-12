@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getCart } from './cartAPI';
+import { addToCart, getCart } from './cartAPI';
 
 const initialState = {
     cart: null,
@@ -14,6 +14,25 @@ export const getCartThunk = createAsyncThunk(
         if(!resp.ok) {
             throw new Error(resp.error);
         }
+        return resp.cart;
+    }
+);
+
+export const addToCartThunk = createAsyncThunk(
+    'cart/add',
+    async (body) => {
+        let { cartId, productId, quantity } = body;
+
+        if(!cartId || !productId || !quantity) {
+            throw new Error('All data is required!');
+        }
+
+        const resp = await addToCart(cartId, productId, quantity);
+
+        if(!resp.ok) {
+            throw new Error(resp.error);
+        }
+
         return resp.cart;
     }
 );
@@ -37,6 +56,19 @@ export const cartSlice = createSlice({
                 state.cart = action.payload;
             })
             .addCase(getCartThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
+
+        builder
+            .addCase(addToCartThunk.pending, state => {
+                state.status = 'loading';
+            })
+            .addCase(addToCartThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.cart = action.payload;
+            })
+            .addCase(addToCartThunk.rejected, (state, action) => {
                 state.status = 'error';
                 state.error = action.error.message || '';
             });

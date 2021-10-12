@@ -8,4 +8,4 @@ const schema = new Schema({
     imageUrl: { type: String, required: true }
 });
 
-module.exports = model('Post', schema);
+module.exports = model('Product', schema);

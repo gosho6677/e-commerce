@@ -4,62 +4,29 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import './Cart.css';
+import CartCard from './CartCard';
 
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // import { useEffect } from 'react';
 
 const Cart = () => {
-    // const status = useSelector(state => state.cart.status);
-    // const cart = useSelector(state => state.cart.cart);
+    const status = useSelector(state => state.cart.status);
+    const cart = useSelector(state => state.cart.cart);
     // const dispatch = useDispatch();
 
     return (
         <Paper elevation={3} className='cart-container'>
             <Grid container direction='column' className='cart-item-container'>
-                <Grid item>
-                    <Card className='cart-item-card'>
-                        <CardMedia
-                            component="img"
-                            sx={{ maxWidth: '250px' }}
-                            image="https://icenter.bg/wp-content/uploads/2021/09/iphone_13_pro_sierra_blue_pdp_image_position-2__wwen_1_1.jpg"
-                            alt="Live from space album cover"
-                        />
-                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                            <CardContent>
-                                <Typography component="div" variant="h5" marginBottom='5px'>
-                                    Iphone 13
-                                </Typography>
-                                <Typography variant="subtitle1" color="text.secondary" marginBottom='5px' component="div">
-                                    $1099
-                                </Typography>
-                                <Stack direction='row' alignItems='center' className='card-item-quantity'>
-                                    <IconButton>
-                                        <RemoveIcon />
-                                    </IconButton>
-                                    <Typography sx={{ p: 1 }} variant="subtitle1" color="text.primary" component="div">
-                                        1
-                                    </Typography>
-                                    <IconButton>
-                                        <AddIcon />
-                                    </IconButton>
-                                </Stack>
-                                <Button variant='text' className='cart-remove-btn'>Remove</Button>
-                            </CardContent>
-                        </Box>
-                    </Card>
-                </Grid>
+                {cart?.items?.length
+                    ? cart.items.map(c => <CartCard item={c} key={c.product._id} />)
+                    : <Typography variant='h3'>No items in the cart yet!</Typography>
+                }
             </Grid>
             <Box className='cart-checkout'>
                 <Stack direction='column'>
-                    <Typography variant='h5' className='cart-item-price'>20 products</Typography>
-                    <Typography variant='h5' className='cart-total-price'>Total: $1099</Typography>
+                    <Typography variant='h5' className='cart-item-price'>{cart?.items?.length} products</Typography>
+                    <Typography variant='h5' className='cart-total-price'>Total: ${cart.bill}</Typography>
                     <Button variant='contained'>Checkout</Button>
                 </Stack>
             </Box>

@@ -3,7 +3,6 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
-import { Counter } from './features/counter/Counter';
 import Dashboard from './features/dashboard/Dashboard';
 import Login from './features/auth/Login';
 import Register from './features/auth/Register';
@@ -26,7 +25,7 @@ const App = () => {
 
     // get existing or new cart for logged users
     useEffect(() => {
-        if(userStatus === 'succeeded' && cartStatus === 'idle') {
+        if (userStatus === 'succeeded' && cartStatus === 'idle') {
             dispatch(getCartThunk());
         }
     }, [userStatus, cartStatus, dispatch]);
@@ -34,7 +33,13 @@ const App = () => {
     return (
         <StyledEngineProvider injectFirst>
             <CssBaseline />
-            {(itemsError || userError) && <ErrorBox itemsError={itemsError} userError={userError} cartError={cartError} />}
+            {(itemsError || userError || cartError)
+                && <ErrorBox
+                    itemsError={itemsError}
+                    userError={userError}
+                    cartError={cartError}
+                />
+            }
             <Navigation />
             <Switch>
                 <Route path='/' exact component={Dashboard} />
@@ -43,8 +48,7 @@ const App = () => {
                 <Route path='/items/details/:id' exact component={Details} />
                 <Route path='/auth/login' exact component={Login} />
                 <Route path='/auth/register' exact component={Register} />
-                <Route path='/test' exact component={Counter} />
-                <Route path='*' render={() => <h1 style={{textAlign: 'center'}}>Page not found...</h1>} />
+                <Route path='*' render={() => <h1 style={{ textAlign: 'center' }}>Page not found...</h1>} />
             </Switch>
         </StyledEngineProvider>
     );

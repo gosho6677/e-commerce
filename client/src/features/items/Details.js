@@ -6,16 +6,27 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import './Details.css';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectPostById } from './itemsSlice';
+import { addToCartThunk } from '../cart/cartSlice';
 
 const Details = ({ match }) => {
-    const status = useSelector(state => state.user.status);
     const itemId = match.params.id;
+    const cart = useSelector(state => state.cart.cart);
+    const status = useSelector(state => state.user.status);
     const item = useSelector(state => selectPostById(state, itemId));
+    const dispatch = useDispatch();
     // TODO: fix problem on page reload to fetch the selected 
     // id instead to select it through redux store
     
+    const addToCartHandler = e => {
+        dispatch(addToCartThunk({
+            cartId: cart._id,
+            productId: itemId,
+            quantity: 1,
+        }));
+    };
+
     return (
         <Paper elevation={3} className='details-container'>
             <Box className='details-img-container'>
@@ -34,7 +45,7 @@ const Details = ({ match }) => {
                     <Divider />
                     {/* shows btn if user is logged(succeeded) */}
                     {status === 'succeeded'
-                        ? <Button variant='contained'>Add to cart</Button>
+                        ? <Button onClick={addToCartHandler} variant='contained'>Add to cart</Button>
                         : <Typography variant='h4' color='text.secondary' sx={{textAlign: 'center'}}>If you want to purchase this product, please login or register.</Typography>
                     }
                 </Stack>

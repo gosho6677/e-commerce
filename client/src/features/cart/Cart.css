@@ -24,6 +24,7 @@
 
 .card-item-quantity {
     border: 2px solid rgba(114, 114, 114, 0.479);
+    width: 110px;
 }
 
 .cart-checkout {
