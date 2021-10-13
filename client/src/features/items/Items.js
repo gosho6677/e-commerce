@@ -3,11 +3,11 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import './Items.css';
 
-import Filters from './Filters';
+import Filters from '../dashboard/Filters';
 import ItemCard from './ItemCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getAllItemsThunk, selectAllItems } from '../items/itemsSlice';
+import { getAllItemsThunk, selectAllItems } from './itemsSlice';
 
 const Items = () => {
     const status = useSelector(state => state.items.status);

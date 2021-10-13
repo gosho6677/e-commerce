@@ -14,6 +14,8 @@
 - [x] add insert into cart FE/BE
 - [x] add increase/decrease quantity functionality
 - [x] add delete from cart FE/BE
+- [x] add stages to cart component
+- [x] add shipping details template
 - [ ] add transition to purchase template from cart view
 - [ ] add convert to Order from Cart (deletes cart and creates new Order)
 - [ ] sort
