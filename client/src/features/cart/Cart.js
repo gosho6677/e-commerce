@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import './Cart.css';
 import CartCard from './CartCard';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import LoadingSpinner from '../loading/LoadingSpinner';
 // import { useEffect } from 'react';
 
 const Cart = () => {
@@ -15,11 +16,15 @@ const Cart = () => {
     const cart = useSelector(state => state.cart.cart);
     // const dispatch = useDispatch();
 
+    if(status === 'loading') {
+        return <LoadingSpinner />;
+    }
+
     return (
         <Paper elevation={3} className='cart-container'>
             <Grid container direction='column' className='cart-item-container'>
                 {cart?.items?.length
-                    ? cart.items.map(c => <CartCard item={c} key={c.product._id} />)
+                    ? cart.items.map(c => <CartCard item={c} key={c.product._id} cartId={cart._id} />)
                     : <Typography variant='h3'>No items in the cart yet!</Typography>
                 }
             </Grid>
@@ -27,7 +32,7 @@ const Cart = () => {
                 <Stack direction='column'>
                     <Typography variant='h5' className='cart-item-price'>{cart?.items?.length} products</Typography>
                     <Typography variant='h5' className='cart-total-price'>Total: ${cart.bill}</Typography>
-                    {cart?.items?.length && <Button variant='contained'>Checkout</Button>}
+                    {cart?.items?.length ? <Button variant='contained'>Checkout</Button> : null}
                 </Stack>
             </Box>
         </Paper>

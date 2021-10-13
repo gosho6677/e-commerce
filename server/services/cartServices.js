@@ -22,7 +22,7 @@ const addToCart = async (cartId, productId, quantity) => {
     const cart = await Cart.findById(cartId).populate({
         path: 'items',
         populate: { path: 'product' }
-    });;
+    });
     const product = await Product.findById(productId);
 
     cart.bill += Number(product.price * quantity);
@@ -35,8 +35,22 @@ const addToCart = async (cartId, productId, quantity) => {
     return cart;
 };
 
+const deleteFromCart = async (cartId, productId) => {
+    const cart = await Cart.findById(cartId).populate({
+        path: 'items',
+        populate: { path: 'product' }
+    });
+
+    const item = cart.items.find(x => x.product._id == productId);
+    cart.bill -= Number(item.product.price * item.quantity);
+    cart.items = cart.items.filter(x => x.product._id != productId);
+
+    await cart.save();
+};
+
 module.exports = {
     getCart,
     createCart,
     addToCart,
+    deleteFromCart,
 };

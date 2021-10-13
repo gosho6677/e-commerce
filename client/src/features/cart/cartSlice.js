@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addToCart, getCart } from './cartAPI';
+import { addToCart, deleteFromCart, getCart } from './cartAPI';
 
 const initialState = {
     cart: null,
@@ -34,6 +34,24 @@ export const addToCartThunk = createAsyncThunk(
         }
 
         return resp.cart;
+    }
+);
+
+export const removeFromCartThunk = createAsyncThunk(
+    'cart/remove',
+    async (body) => {
+        let { cartId, productId } = body;
+
+        if (!cartId || !productId) {
+            throw new Error('All data is required!');
+        }
+
+        const resp = await deleteFromCart(cartId, productId);
+        if (!resp.ok) {
+            throw new Error(resp.error);
+        }
+
+        return resp.productId;
     }
 );
 
@@ -89,6 +107,21 @@ export const cartSlice = createSlice({
                 state.cart = action.payload;
             })
             .addCase(addToCartThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
+
+        builder
+            .addCase(removeFromCartThunk.pending, state => {
+                state.status = 'loading';
+            })
+            .addCase(removeFromCartThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                const item = state.cart.items.find(x => x.product._id === action.payload);
+                state.cart.bill -= Number(item.product.price * item.quantity);
+                state.cart.items = state.cart.items.filter(x => x.product._id !== action.payload);
+            })
+            .addCase(removeFromCartThunk.rejected, (state, action) => {
                 state.status = 'error';
                 state.error = action.error.message || '';
             });

@@ -16,7 +16,7 @@ router.get('/', isAuthorized(), async (req, res) => {
     }
 });
 
-router.post('/:cartId', isAuthorized(), async (req, res) => {
+router.post('/:cartId/add-item', isAuthorized(), async (req, res) => {
     try {
         const cartId = req.params.cartId;
         const productId = req.body.productId;
@@ -26,7 +26,19 @@ router.post('/:cartId', isAuthorized(), async (req, res) => {
             throw new Error('Quantity must be a positive integer!');
         }
         const cart = await req.data.addToCart(cartId, productId, quantity);
-        res.json({ ok: true, cart });
+        res.status(201).json({ ok: true, cart });
+    } catch (err) {
+        res.json({ ok: false, error: err.message });
+    }
+});
+
+router.delete('/:cartId/delete-item/:productId', isAuthorized(), async (req, res) => {
+    try {
+        const cartId = req.params.cartId;
+        const productId = req.params.productId;
+        
+        await req.data.deleteFromCart(cartId, productId);
+        res.json({ ok: true, productId });
     } catch (err) {
         res.json({ ok: false, error: err.message });
     }

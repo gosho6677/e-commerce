@@ -12,9 +12,9 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 import { useDispatch } from 'react-redux';
-import { decreaseItemQuantity, increaseItemQuantity } from './cartSlice';
+import { decreaseItemQuantity, increaseItemQuantity, removeFromCartThunk } from './cartSlice';
 
-const CartCard = ({ item }) => {
+const CartCard = ({ item, cartId }) => {
     const dispatch = useDispatch();
 
     const increaseQuantityHandler = () => {
@@ -23,6 +23,10 @@ const CartCard = ({ item }) => {
 
     const decreaseQuantityHandler = () => {
         dispatch(decreaseItemQuantity(item.product._id));
+    };
+
+    const removeFromCartHandler = () => {
+        dispatch(removeFromCartThunk({ cartId, productId: item.product._id }));
     };
 
     return (
@@ -57,8 +61,7 @@ const CartCard = ({ item }) => {
                                 <AddIcon />
                             </IconButton>
                         </Stack>
-                        {/* TODO remove btn */}
-                        <Button variant='text' className='cart-remove-btn'>Remove</Button>
+                        <Button onClick={removeFromCartHandler} variant='text' className='cart-remove-btn'>Remove</Button>
                     </CardContent>
                 </Box>
             </Card>
