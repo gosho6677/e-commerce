@@ -12,6 +12,7 @@
 - [x] add cart template
 - [x] add get cart FE/BE
 - [x] add insert into cart FE/BE
+- [ ] add increase/decrease quantity functionality
 - [ ] add delete from cart FE/BE
 - [ ] add transition to purchase template from cart view
 - [ ] add convert to Order from Cart (deletes cart and creates new Order)

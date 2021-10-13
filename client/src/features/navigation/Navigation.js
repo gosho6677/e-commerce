@@ -6,16 +6,20 @@ import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './Navigation.css';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutThunk } from '../auth/authSlice';
 
 const Navigation = () => {
-    const dispatch = useDispatch();
     const status = useSelector(state => state.user.status);
     const user = useSelector(state => state.user.user);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
-    const logoutHandler = () => dispatch(logoutThunk());
+    const logoutHandler = () => {
+        dispatch(logoutThunk());
+        history.push('/');
+    };
 
     return (
         <Box sx={{ flexGrow: 1 }} component='nav'>

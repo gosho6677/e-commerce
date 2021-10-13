@@ -27,7 +27,7 @@ const Cart = () => {
                 <Stack direction='column'>
                     <Typography variant='h5' className='cart-item-price'>{cart?.items?.length} products</Typography>
                     <Typography variant='h5' className='cart-total-price'>Total: ${cart.bill}</Typography>
-                    <Button variant='contained'>Checkout</Button>
+                    {cart?.items?.length && <Button variant='contained'>Checkout</Button>}
                 </Stack>
             </Box>
         </Paper>

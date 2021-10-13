@@ -1,6 +1,6 @@
-/* .dashboard-items-container {
-    border: 2px solid black;
-} */
+.dashboard-items-container {
+    background-color: #F5F7F8;
+}
 
 .dashboard-items-item {
     /* border: 2px solid black; */

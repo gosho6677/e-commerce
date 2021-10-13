@@ -11,7 +11,7 @@ export const getCartThunk = createAsyncThunk(
     'cart/get',
     async () => {
         const resp = await getCart();
-        if(!resp.ok) {
+        if (!resp.ok) {
             throw new Error(resp.error);
         }
         return resp.cart;
@@ -23,13 +23,13 @@ export const addToCartThunk = createAsyncThunk(
     async (body) => {
         let { cartId, productId, quantity } = body;
 
-        if(!cartId || !productId || !quantity) {
+        if (!cartId || !productId || !quantity) {
             throw new Error('All data is required!');
         }
 
         const resp = await addToCart(cartId, productId, quantity);
 
-        if(!resp.ok) {
+        if (!resp.ok) {
             throw new Error(resp.error);
         }
 
@@ -44,6 +44,26 @@ export const cartSlice = createSlice({
         removeCartError: state => {
             state.status = state.cart !== null ? 'succeeded' : 'idle';
             state.error = '';
+        },
+        increaseItemQuantity: (state, action) => {
+            // console.log(JSON.stringify(state.cart, null , 2));
+            const item = state.cart.items.find(x => x.product._id === action.payload);
+            if (!item) {
+                return;
+            }
+
+            item.quantity += 1;
+            state.cart.bill += Number(item.product.price);
+        },
+        decreaseItemQuantity: (state, action) => {
+            const item = state.cart.items.find(x => x.product._id === action.payload);
+            if (!item) {
+                return;
+            }
+            if (item.quantity > 1 && (state.cart.bill - item.product.price) > 0) {
+                item.quantity -= 1;
+                state.cart.bill -= Number(item.product.price);
+            }
         }
     },
     extraReducers: builder => {
@@ -75,5 +95,9 @@ export const cartSlice = createSlice({
     }
 });
 
-export const { removeCartError } = cartSlice.actions;
+export const {
+    removeCartError,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+} = cartSlice.actions;
 export default cartSlice.reducer;

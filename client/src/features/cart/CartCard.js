@@ -11,7 +11,20 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
+import { useDispatch } from 'react-redux';
+import { decreaseItemQuantity, increaseItemQuantity } from './cartSlice';
+
 const CartCard = ({ item }) => {
+    const dispatch = useDispatch();
+
+    const increaseQuantityHandler = () => {
+        dispatch(increaseItemQuantity(item.product._id));
+    };
+
+    const decreaseQuantityHandler = () => {
+        dispatch(decreaseItemQuantity(item.product._id));
+    };
+
     return (
         <Grid item>
             <Card className='cart-item-card'>
@@ -27,20 +40,20 @@ const CartCard = ({ item }) => {
                             {item.product.name}
                         </Typography>
                         <Typography variant="subtitle1" color="text.secondary" marginBottom='5px' component="div">
-                            ${item.product.price * item.quantity}
+                            ${item.product.price}
                         </Typography>
                         <Stack
                             direction='row'
                             alignItems='center'
                             className='card-item-quantity'
                         >
-                            <IconButton>
+                            <IconButton onClick={decreaseQuantityHandler}>
                                 <RemoveIcon />
                             </IconButton>
                             <Typography sx={{ p: 1 }} variant="subtitle1" color="text.primary" component="div">
                                 {item.quantity}
                             </Typography>
-                            <IconButton>
+                            <IconButton onClick={increaseQuantityHandler}>
                                 <AddIcon />
                             </IconButton>
                         </Stack>

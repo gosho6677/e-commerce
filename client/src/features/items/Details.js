@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectPostById } from './itemsSlice';
 import { addToCartThunk } from '../cart/cartSlice';
 
-const Details = ({ match }) => {
+const Details = ({ match, history }) => {
     const itemId = match.params.id;
     const cart = useSelector(state => state.cart.cart);
     const status = useSelector(state => state.user.status);
@@ -25,6 +25,7 @@ const Details = ({ match }) => {
             productId: itemId,
             quantity: 1,
         }));
+        history.push('/cart');
     };
 
     return (
