@@ -145,6 +145,12 @@ export const selectCartId = (state) => {
     }
 };
 
+export const selectCartItems = (state) => {
+    if(state.cart.status === 'succeeded') {
+        return state.cart.cart.items;
+    } 
+};
+
 export const {
     removeCartError,
     increaseItemQuantity,

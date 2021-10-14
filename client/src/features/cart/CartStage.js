@@ -10,7 +10,7 @@ import LoadingSpinner from "../loading/LoadingSpinner";
 
 import { useSelector } from "react-redux";
 
-const CartStage = ({ changeStageHandler }) => {
+const CartStage = ({ setStage }) => {
     const status = useSelector(state => state.cart.status);
     const cart = useSelector(state => state.cart.cart);
     // const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const CartStage = ({ changeStageHandler }) => {
                     <Typography variant='h5' className='cart-item-price'>{cart?.items?.length} products</Typography>
                     <Typography variant='h5' className='cart-total-price'>Total: ${cart.bill}</Typography>
                     {cart.items.length
-                        ? <Button onClick={changeStageHandler(2)} variant='contained'>Proceed</Button>
+                        ? <Button onClick={() => setStage(2)} variant='contained'>Proceed</Button>
                         : null
                     }
                 </Stack>

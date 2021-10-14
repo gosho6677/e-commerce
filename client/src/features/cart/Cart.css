@@ -78,7 +78,7 @@
 .review-order-list-items {
     width: 100%;
     max-width: 600px;
-    border: 1px solid #c7c7c7;
+    /* border: 1px solid #c7c7c7; */
     border-radius: 10px;
     margin: 10px 0;
 }

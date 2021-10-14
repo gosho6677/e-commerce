@@ -12,22 +12,19 @@ import ReviewOrderStage from './ReviewOrderStage';
 const Cart = () => {
     const status = useSelector(state => state.cart.status);
     const [stage, setStage] = useState(1);
+    const [shippingInfo, setShippingInfo] = useState({});
     // const cart = useSelector(state => state.cart.cart);
-
-    const changeStageHandler = (stage) => () => {
-        setStage(stage);
-    };
 
     if(status === 'loading') {
         return <LoadingSpinner />;
     }
     
     if(stage === 1) {
-        return <CartStage changeStageHandler={changeStageHandler} />;
+        return <CartStage setStage={setStage} />;
     } else if (stage === 2) {
-        return <ShippingInfoStage changeStageHandler={changeStageHandler} />;
+        return <ShippingInfoStage setShippingInfo={setShippingInfo} setStage={setStage} />;
     } else if (stage === 3) {
-        return <ReviewOrderStage changeStageHandler={changeStageHandler} />;
+        return <ReviewOrderStage shippingInfo={shippingInfo} setStage={setStage} />;
     } else {
         return null;
     }
