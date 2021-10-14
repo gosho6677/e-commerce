@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-const ShippingInfoStage = ({ setStage }) => {
+const ShippingInfoStage = ({ changeStageHandler }) => {
     return (
         <Paper elevation={3} className='cart-container'>
             <Typography variant='h4'>Shipping details</Typography>
@@ -55,8 +55,8 @@ const ShippingInfoStage = ({ setStage }) => {
                 </Grid>
                 <Grid item className='cart-shipping-info-item'>
                     <Stack direction='row' justifyContent='flex-end' gap='5px'>
-                        <Button onClick={() => setStage(1)} variant='outlined'>Back</Button>
-                        <Button onClick={() => setStage(3)} variant='contained'>Review order</Button>
+                        <Button onClick={changeStageHandler(1)} variant='outlined'>Back</Button>
+                        <Button onClick={changeStageHandler(3)} variant='contained'>Review order</Button>
                     </Stack>
                 </Grid>
             </Grid>

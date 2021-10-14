@@ -20,11 +20,18 @@ export const getCartThunk = createAsyncThunk(
 
 export const addToCartThunk = createAsyncThunk(
     'cart/add',
-    async (body) => {
+    async (body, { getState }) => {
         let { cartId, productId, quantity } = body;
 
         if (!cartId || !productId || !quantity) {
             throw new Error('All data is required!');
+        }
+
+        let cartState = getState().cart.cart;
+        let isPresent = cartState.items.findIndex(x => x.product._id === productId);
+
+        if (isPresent !== -1) {
+            return { isPresent: true };
         }
 
         const resp = await addToCart(cartId, productId, quantity);
@@ -41,7 +48,6 @@ export const removeFromCartThunk = createAsyncThunk(
     'cart/remove',
     async (body) => {
         let { cartId, productId } = body;
-
         if (!cartId || !productId) {
             throw new Error('All data is required!');
         }
@@ -104,6 +110,11 @@ export const cartSlice = createSlice({
             })
             .addCase(addToCartThunk.fulfilled, (state, action) => {
                 state.status = 'succeeded';
+
+                if(action.payload.isPresent) {
+                    return;
+                }
+
                 state.cart = action.payload;
             })
             .addCase(addToCartThunk.rejected, (state, action) => {
@@ -127,6 +138,12 @@ export const cartSlice = createSlice({
             });
     }
 });
+
+export const selectCartId = (state) => {
+    if (state.cart.status === 'succeeded') {
+        return state.cart.cart._id;
+    }
+};
 
 export const {
     removeCartError,

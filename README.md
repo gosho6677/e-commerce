@@ -16,7 +16,7 @@
 - [x] add delete from cart FE/BE
 - [x] add stages to cart component
 - [x] add shipping details template
-- [ ] add transition to purchase template from cart view
-- [ ] add convert to Order from Cart (deletes cart and creates new Order)
+- [ ] add review order to purchase template
+- [ ] add convert to Order from Cart
 - [ ] sort
 - [ ] search

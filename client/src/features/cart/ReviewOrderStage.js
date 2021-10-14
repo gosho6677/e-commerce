@@ -1,8 +1,8 @@
-const ReviewOrderStage = ({ setStage }) => {
+const ReviewOrderStage = ({ changeStageHandler }) => {
     return (
         <>
             <h2>stage 3</h2>
-            <button onClick={() => setStage(2)}>Back</button>
+            <button onClick={changeStageHandler(2)}>Back</button>
         </>
     );
 };

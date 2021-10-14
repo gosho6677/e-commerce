@@ -1,4 +1,4 @@
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import './Cart.css';
 
 import LoadingSpinner from '../loading/LoadingSpinner';
@@ -14,16 +14,20 @@ const Cart = () => {
     const [stage, setStage] = useState(1);
     // const cart = useSelector(state => state.cart.cart);
 
+    const changeStageHandler = (stage) => () => {
+        setStage(stage);
+    };
+
     if(status === 'loading') {
         return <LoadingSpinner />;
     }
-
+    
     if(stage === 1) {
-        return <CartStage setStage={setStage} />;
+        return <CartStage changeStageHandler={changeStageHandler} />;
     } else if (stage === 2) {
-        return <ShippingInfoStage setStage={setStage} />;
+        return <ShippingInfoStage changeStageHandler={changeStageHandler} />;
     } else if (stage === 3) {
-        return <ReviewOrderStage setStage={setStage} />;
+        return <ReviewOrderStage changeStageHandler={changeStageHandler} />;
     } else {
         return null;
     }

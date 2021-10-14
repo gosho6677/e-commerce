@@ -82,7 +82,7 @@ export const itemsSlice = createSlice({
 
 export const {
     selectAll: selectAllItems,
-    selectById: selectPostById,
+    selectById: selectItemById,
 } = itemsAdapter.getSelectors((state) => state.items);
 export const { removeItemError } = itemsSlice.actions;
 export default itemsSlice.reducer;

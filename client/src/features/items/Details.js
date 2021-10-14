@@ -7,21 +7,21 @@ import Button from '@mui/material/Button';
 import './Details.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPostById } from './itemsSlice';
-import { addToCartThunk } from '../cart/cartSlice';
+import { selectItemById } from './itemsSlice';
+import { addToCartThunk, selectCartId } from '../cart/cartSlice';
 
 const Details = ({ match, history }) => {
     const itemId = match.params.id;
-    const cart = useSelector(state => state.cart.cart);
+    const cartId = useSelector(selectCartId);
     const status = useSelector(state => state.user.status);
-    const item = useSelector(state => selectPostById(state, itemId));
+    const item = useSelector(state => selectItemById(state, itemId));
     const dispatch = useDispatch();
     // TODO: fix problem on page reload to fetch the selected 
     // id instead to select it through redux store
     
     const addToCartHandler = e => {
         dispatch(addToCartThunk({
-            cartId: cart._id,
+            cartId,
             productId: itemId,
             quantity: 1,
         }));
