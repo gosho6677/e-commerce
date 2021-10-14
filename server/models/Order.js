@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
+    userId: { type: String, required: true },
     cart: {
-        userId: { type: String, required: true },
         items: [{
             product: {
                 type: Schema.Types.ObjectId,

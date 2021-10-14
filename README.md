@@ -16,9 +16,12 @@
 - [x] add delete from cart FE/BE
 - [x] add stages to cart component
 - [x] add shipping details template
-- [ ] add shipping details functionality
+- [x] add shipping details functionality
 - [x] add review order to purchase template
-- [ ] add review order to purchase functionality
-- [ ] add convert to Order from Cart
+- [ ] add complete order template
+- [ ] add place order functionality FE/BE
+- [ ] add order slice
+- [ ] add order controller/service
+- [ ] add my orders page template
 - [ ] sort
 - [ ] search
