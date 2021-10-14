@@ -26,7 +26,7 @@ router.post('/', isAuthorized(), async (req, res) => {
         }
 
         await req.data.createOrder(cartId, order);
-        res.json({ ok: true });
+        res.status(201).json({ ok: true });
     } catch (err) {
         res.json({ ok: false, error: err.message });
     }

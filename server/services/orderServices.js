@@ -14,7 +14,7 @@ const createOrder = async (cartId, orderPayload) => {
     const order = new Order(orderPayload);
 
     await order.save();
-    await Cart.findByIdAndDelete();
+    await Cart.findByIdAndDelete(cartId);
 };
 
 module.exports = {

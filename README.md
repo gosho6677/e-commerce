@@ -20,8 +20,8 @@
 - [x] add review order to purchase template
 - [ ] add complete order template
 - [ ] add place order functionality FE/BE
-- [ ] add order slice
-- [ ] add order controller/service
+- [x] add order slice
+- [x] add order controller/service
 - [ ] add my orders page template
 - [ ] sort
 - [ ] search
