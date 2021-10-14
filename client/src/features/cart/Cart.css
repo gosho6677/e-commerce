@@ -62,13 +62,39 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    max-width: 300px;
-    margin: 10px;
+    max-width: 600px;
+    margin: 10px 0;
     padding: 2rem 1rem;
-    border: 2px solid #c7c7c7;
+    border: 1px solid #c7c7c7;
     border-radius: 10px;
 }
 
 .cart-shipping-info-item {
     margin: 5px 0;
+}
+
+/* 3rd stage review order */
+
+.review-order-list-items {
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #c7c7c7;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.review-order-list-shipping-info {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #c7c7c7;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.review-order-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5px;
+    margin: 10px 0;
 }
