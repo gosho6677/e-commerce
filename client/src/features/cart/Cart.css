@@ -98,3 +98,17 @@
     gap: 5px;
     margin: 10px 0;
 }
+
+/* 4th stage checkout */
+
+.checkout-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px auto;
+}

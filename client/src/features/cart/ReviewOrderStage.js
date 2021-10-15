@@ -67,7 +67,7 @@ const ReviewOrderStage = ({ shippingInfo, setStage }) => {
             <Typography variant='h5'>Total: ${cart.bill}</Typography>
             <Stack className='review-order-btns'>
                 <Button onClick={() => setStage(1)} variant='outlined'>Back to cart</Button>
-                <Button onClick={() => setStage(3)} variant='contained'>Place order</Button>
+                <Button onClick={() => setStage(4)} variant='contained'>Place order</Button>
             </Stack>
         </Paper>
     );

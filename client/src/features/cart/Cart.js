@@ -8,6 +8,7 @@ import { useState } from 'react';
 import CartStage from './CartStage';
 import ShippingInfoStage from './ShippingInfoStage';
 import ReviewOrderStage from './ReviewOrderStage';
+import CheckoutLastStage from './CheckoutLastStage';
 
 const Cart = () => {
     const status = useSelector(state => state.cart.status);
@@ -15,16 +16,18 @@ const Cart = () => {
     const [shippingInfo, setShippingInfo] = useState({});
     // const cart = useSelector(state => state.cart.cart);
 
-    if(status === 'loading') {
+    if (status === 'loading') {
         return <LoadingSpinner />;
     }
-    
-    if(stage === 1) {
+
+    if (stage === 1) {
         return <CartStage setStage={setStage} />;
     } else if (stage === 2) {
         return <ShippingInfoStage setShippingInfo={setShippingInfo} setStage={setStage} />;
     } else if (stage === 3) {
         return <ReviewOrderStage shippingInfo={shippingInfo} setStage={setStage} />;
+    } else if (stage === 4) {
+        return <CheckoutLastStage />;
     } else {
         return null;
     }

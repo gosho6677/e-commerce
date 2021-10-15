@@ -22,6 +22,7 @@ const App = () => {
     const userError = useSelector(state => state.user.error);
     const itemsError = useSelector(state => state.items.error);
     const cartError = useSelector(state => state.cart.error);
+    const orderError = useSelector(state => state.orders.error);
     const dispatch = useDispatch();
 
     // get existing or new cart for logged users
@@ -39,6 +40,7 @@ const App = () => {
                     itemsError={itemsError}
                     userError={userError}
                     cartError={cartError}
+                    orderError={orderError}
                 />
             }
             <Navigation />

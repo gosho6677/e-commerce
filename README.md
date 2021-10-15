@@ -25,3 +25,4 @@
 - [ ] add my orders page template
 - [ ] sort
 - [ ] search
+- [ ] refactor code to remove express-validator

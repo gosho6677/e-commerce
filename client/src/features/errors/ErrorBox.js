@@ -2,9 +2,10 @@ import { useDispatch } from 'react-redux';
 import { removeUserError } from '../auth/authSlice';
 import { removeCartError } from '../cart/cartSlice';
 import { removeItemError } from '../items/itemsSlice';
+import { removeOrderError } from '../orders/orderSlice';
 import './ErrorBox.css';
 
-const ErrorBox = ({ itemsError, userError, cartError }) => {
+const ErrorBox = ({ itemsError, userError, cartError, orderError }) => {
     const dispatch = useDispatch();
     
     // useEffect(() => {
@@ -19,9 +20,10 @@ const ErrorBox = ({ itemsError, userError, cartError }) => {
     // }, [removeError, dispatch]);
 
     const errorHandler = () => {
-        dispatch(removeUserError());
-        dispatch(removeItemError());
-        dispatch(removeCartError());
+        userError && dispatch(removeUserError());
+        itemsError && dispatch(removeItemError());
+        cartError && dispatch(removeCartError());
+        cartError && dispatch(removeOrderError());
     };
 
     return (
@@ -29,6 +31,7 @@ const ErrorBox = ({ itemsError, userError, cartError }) => {
             {itemsError && itemsError}
             {userError && userError}
             {cartError && cartError}
+            {orderError && orderError}
         </div>
     );
 };
