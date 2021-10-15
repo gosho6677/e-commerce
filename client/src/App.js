@@ -15,6 +15,7 @@ import Cart from './features/cart/Cart';
 import { useEffect } from 'react';
 import { getCartThunk } from './features/cart/cartSlice';
 import isAuth from './hoc/isAuth';
+import Orders from './features/orders/Orders';
 
 const App = () => {
     const userStatus = useSelector(state => state.user.status);
@@ -46,6 +47,7 @@ const App = () => {
             <Navigation />
             <Switch>
                 <Route path='/' exact component={Dashboard} />
+                <Route path='/my-orders' exact component={isAuth(Orders)} />
                 <Route path='/cart' exact component={isAuth(Cart)} />
                 <Route path='/items/create' exact component={Create} />
                 <Route path='/items/details/:id' exact component={Details} />

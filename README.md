@@ -22,7 +22,8 @@
 - [x] add place order functionality FE/BE
 - [x] add order slice
 - [x] add order controller/service
-- [ ] add my orders page template
+- [x] add my orders page template
+- [ ] add my orders page functionality
 - [ ] sort
 - [ ] search
 - [ ] refactor code to remove express-validator

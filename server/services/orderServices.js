@@ -2,10 +2,18 @@ const Order = require('../models/Order');
 const Cart = require('../models/Cart');
 
 const getOrders = async (userId) => {
+    // nested population requried...
     const orders = await Order.find({ userId }).populate({
-        path: 'items',
-        populate: { path: 'product' }
+        path: 'cart',
+        populate: {
+            path: 'items',
+            populate: { path: 'product' }
+        }
     });
+    // const orders = await Order.find({ userId }).populate({
+    //     path: 'items',
+    //     populate: { path: 'product' }
+    // });
 
     return orders;
 };

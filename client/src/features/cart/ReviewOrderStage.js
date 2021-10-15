@@ -46,16 +46,16 @@ const ReviewOrderStage = ({ shippingInfo, setStage }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {items.map((row) => (
+                        {items.map((item) => (
                             <TableRow
-                                key={row.product._id}
+                                key={item.product._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.product.name}
+                                    {item.product.name}
                                 </TableCell>
-                                <TableCell align="right">{row.quantity}</TableCell>
-                                <TableCell align="right">${row.product.price}</TableCell>
+                                <TableCell align="right">{item.quantity}</TableCell>
+                                <TableCell align="right">${item.product.price}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
