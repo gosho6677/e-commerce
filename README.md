@@ -18,8 +18,8 @@
 - [x] add shipping details template
 - [x] add shipping details functionality
 - [x] add review order to purchase template
-- [ ] add complete order template
-- [ ] add place order functionality FE/BE
+- [x] add complete order template
+- [x] add place order functionality FE/BE
 - [x] add order slice
 - [x] add order controller/service
 - [ ] add my orders page template

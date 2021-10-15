@@ -50,32 +50,44 @@ export const orderSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        // builder
-        //     .addCase(getCartThunk.pending, state => {
-        //         state.status = 'loading';
-        //     })
-        //     .addCase(getCartThunk.fulfilled, (state, action) => {
-        //         state.status = 'succeeded';
-        //         state.cart = action.payload;
-        //     })
-        //     .addCase(getCartThunk.rejected, (state, action) => {
-        //         state.status = 'error';
-        //         state.error = action.error.message || '';
-        //     });
+        builder
+            .addCase(getOrdersThunk.pending, state => {
+                state.status = 'loading';
+            })
+            .addCase(getOrdersThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.orders = action.payload;
+            })
+            .addCase(getOrdersThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
+
+        builder
+            .addCase(createOrderThunk.pending, state => {
+                state.status = 'loading';
+            })
+            .addCase(createOrderThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+            })
+            .addCase(createOrderThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
     }
 });
 
-export const selectCartId = (state) => {
-    if (state.cart.status === 'succeeded') {
-        return state.cart.cart._id;
-    }
-};
+// export const selectCartId = (state) => {
+//     if (state.cart.status === 'succeeded') {
+//         return state.cart.cart._id;
+//     }
+// };
 
-export const selectCartItems = (state) => {
-    if (state.cart.status === 'succeeded') {
-        return state.cart.cart.items;
-    }
-};
+// export const selectCartItems = (state) => {
+//     if (state.cart.status === 'succeeded') {
+//         return state.cart.cart.items;
+//     }
+// };
 
 export const {
     removeOrderError,

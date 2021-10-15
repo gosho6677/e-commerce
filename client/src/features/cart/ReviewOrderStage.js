@@ -1,3 +1,9 @@
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -5,19 +11,28 @@ import Stack from '@mui/material/Stack';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { useSelector } from 'react-redux';
-import { selectCartItems } from './cartSlice';
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCartItems } from './cartSlice';
+import { createOrderThunk } from '../orders/orderSlice';
 
 const ReviewOrderStage = ({ shippingInfo, setStage }) => {
     const items = useSelector(selectCartItems);
     const cart = useSelector(state => state.cart.cart);
+    const dispatch = useDispatch();
+
+    const createOrderHandler = () => {
+        dispatch(createOrderThunk({
+            cartId: cart._id,
+            order: {
+                cart,
+                added: Date.now(),
+                shippingAddress: shippingInfo
+            }
+        }));
+        setStage(4);
+    };
+
     return (
         <Paper elevation={3} className='cart-container'>
             <Typography variant='h4'>Order summary</Typography>
@@ -67,7 +82,7 @@ const ReviewOrderStage = ({ shippingInfo, setStage }) => {
             <Typography variant='h5'>Total: ${cart.bill}</Typography>
             <Stack className='review-order-btns'>
                 <Button onClick={() => setStage(1)} variant='outlined'>Back to cart</Button>
-                <Button onClick={() => setStage(4)} variant='contained'>Place order</Button>
+                <Button onClick={createOrderHandler} variant='contained'>Place order</Button>
             </Stack>
         </Paper>
     );
