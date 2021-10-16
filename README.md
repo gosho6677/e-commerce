@@ -23,7 +23,7 @@
 - [x] add order slice
 - [x] add order controller/service
 - [x] add my orders page template
-- [ ] add my orders page functionality
+- [x] add my orders page functionality
 - [ ] sort
 - [ ] search
 - [ ] refactor code to remove express-validator
