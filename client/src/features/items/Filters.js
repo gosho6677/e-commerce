@@ -5,9 +5,10 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 
 import { useSelector } from 'react-redux';
+import { selectTotalItems } from './itemsSlice';
 
 const Filters = () => {
-    const itemsLength = useSelector(state => state.items.ids.length);
+    const itemsLength = useSelector(selectTotalItems);
     
     return (
         <Stack direction='row' alignItems='center' className='dashboard-items-stack' justifyContent='space-between'>

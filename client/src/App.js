@@ -47,6 +47,7 @@ const App = () => {
             <Navigation />
             <Switch>
                 <Route path='/' exact component={Dashboard} />
+                <Route path='/category/:category' exact component={Dashboard} />
                 <Route path='/my-orders' exact component={isAuth(Orders)} />
                 <Route path='/cart' exact component={isAuth(Cart)} />
                 <Route path='/items/create' exact component={Create} />

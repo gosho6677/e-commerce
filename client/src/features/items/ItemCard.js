@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import Tooltip from '@mui/material/Tooltip';
 
 import { Link } from 'react-router-dom';
 
@@ -16,12 +17,19 @@ const ItemCard = ({ item }) => {
                 <CardMedia
                     component='img'
                     image={item.imageUrl}
-                    alt='green iguana'
+                    alt='item-cart'
                     className='dashboard-items-card-img'
                 />
                 <CardContent>
                     <Typography gutterBottom variant='h5' component='div'>
-                        {item.name}
+                        {item.name.length > 18
+                            ? <Tooltip title={item.name}>
+                                <Typography>
+                                    {item.name.slice(0, 20) + '...'}
+                                </Typography>
+                            </Tooltip>
+                            : item.name
+                        }
                     </Typography>
                     <Divider />
                     <Typography variant='h4' color='text.primary' sx={{ textAlign: 'center', mt: 2 }}>

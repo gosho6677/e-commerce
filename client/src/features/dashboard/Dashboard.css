@@ -15,6 +15,8 @@
 }
 
 .dashboard-items {
+    width: 1000px;
+    width: 80%;
     flex-grow: 1;
     display: flex;
     margin: 10px;

@@ -1,5 +1,6 @@
 .dashboard-items-container {
     background-color: #F5F7F8;
+    justify-content: center;
 }
 
 .dashboard-items-item {
@@ -13,6 +14,7 @@
 
 .dashboard-items-card-img {
     object-fit: contain;
+    height: 345px;
     /* height: 100px; */
 }
 

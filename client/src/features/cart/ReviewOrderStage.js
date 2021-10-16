@@ -13,7 +13,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getCartThunk, selectCartItems } from './cartSlice';
+import { selectCartItems } from './cartSlice';
 import { createOrderThunk } from '../orders/orderSlice';
 
 const ReviewOrderStage = ({ shippingInfo, setStage }) => {

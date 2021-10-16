@@ -19,7 +19,7 @@ const Categories = () => {
     // currentTarget in this case is the tag on which the onClick event is attached,
     // while e.target it would be the svg or span or w/e
     // and this allows to use the dataset to redirect and change the content
-    const routeHandler = e => history.push(`/${e.currentTarget.dataset.category}`);
+    const routeHandler = e => history.push(`/category/${e.currentTarget.dataset.category}`);
 
     return (
         <Paper className='dashboard-categories' elevation={6}>

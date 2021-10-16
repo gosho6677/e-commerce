@@ -3,15 +3,25 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import './Items.css';
 
-import Filters from '../dashboard/Filters';
+import Filters from './Filters';
 import ItemCard from './ItemCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllItemsThunk, selectAllItems } from './itemsSlice';
+import { useParams } from 'react-router-dom';
 
 const Items = () => {
+    const { category } = useParams();
     const status = useSelector(state => state.items.status);
-    const items = useSelector(state => selectAllItems(state));
+    const items = useSelector(state => {
+        if (category) {
+            // remove the 's' (phones => phone)
+            let searchParam = category.slice(0, -1);
+            return Object.values(state.items.entities)
+                .filter(x => x.category === searchParam);
+        }
+        return selectAllItems(state);
+    });
     const dispatch = useDispatch();
 
     useEffect(() => {
