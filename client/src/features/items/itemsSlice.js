@@ -3,7 +3,7 @@ import { createItem, getAllItems } from "./itemsAPI";
 
 const itemsAdapter = createEntityAdapter({
     selectId: (book) => book._id,
-    sortComparer: (a, b) => b.name.localeCompare(a.name)
+    sortComparer: (a, b) => a.name.localeCompare(b.name)
 });
 
 const initialState = itemsAdapter.getInitialState({
@@ -46,10 +46,28 @@ export const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
+        sortByAction: (state, action) => {
+            let entities = state.entities;
+            if(action.payload === 'lowestPrice') {
+                state.ids.sort((a, b) => {
+                    return entities[a].price - entities[b].price;
+                });
+            } else if (action.payload === 'highestPrice') {
+                state.ids.sort((a, b) => {
+                    return entities[b].price - entities[a].price;
+                });
+            } else if (action.payload === 'name') {
+                state.ids.sort((a, b) => {
+                    return entities[a].name.localeCompare(entities[b].name);
+                });
+            } else {
+                return;
+            }
+        },
         removeItemError: state => {
             state.status = state.ids.length ? 'succeeded' : 'idle';
             state.error = '';
-        }
+        },
     },
     extraReducers: builder => {
         builder
@@ -85,5 +103,5 @@ export const {
     selectById: selectItemById,
     selectTotal: selectTotalItems,
 } = itemsAdapter.getSelectors((state) => state.items);
-export const { removeItemError } = itemsSlice.actions;
+export const { sortByAction, removeItemError } = itemsSlice.actions;
 export default itemsSlice.reducer;
