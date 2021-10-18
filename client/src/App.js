@@ -50,7 +50,7 @@ const App = () => {
                 <Route path='/category/:category' exact component={Dashboard} />
                 <Route path='/my-orders' exact component={isAuth(Orders)} />
                 <Route path='/cart' exact component={isAuth(Cart)} />
-                <Route path='/items/create' exact component={Create} />
+                <Route path='/items/create' exact component={isAuth(Create)} />
                 <Route path='/items/details/:id' exact component={Details} />
                 <Route path='/auth/login' exact component={Login} />
                 <Route path='/auth/register' exact component={Register} />

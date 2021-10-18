@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { body, validationResult } = require('express-validator');
 const { isAuthorized } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
@@ -13,31 +12,45 @@ router.get('/', async (req, res) => {
 
 router.post('/',
     isAuthorized(),
-    body('name', 'Title must be atleast 3 characters long.').isLength({ min: 3 }),
-    body('description', 'Description must be atleast 5 characters long.').isLength({ min: 5 }),
-    body('price').custom(val => {
-        if (val < 0) {
-            throw new Error('Price must be greater than 0!');
-        }
-        return true;
-    }),
-    body('imageUrl', 'Image URL must be a valid URL.').isURL(),
     async (req, res) => {
-        const { errors } = validationResult(req);
-
-        const payload = {
-            name: req.body.name,
-            description: req.body.description,
-            price: req.body.price,
-            imageUrl: req.body.imageUrl,
-            category: req.body.category,
-        };
+        const errors = [];
 
         try {
-            if (errors.length) {
-                throw new Error(errors.map(e => e.msg).join('\n'));
+            let {
+                name,
+                description,
+                price,
+                imageUrl,
+                category
+            } = req.body;
+
+            if(!name || name.length < 3) {
+                errors.push('Title must be atleast 3 characters long.');
             }
-            const product = await req.data.createProduct(payload);
+            if(!description || description.lenth < 5) {
+                errors.push('Description must be atleast 5 characters long.');
+            }
+            if(price <= 0) {
+                errors.push('Price must be greater than 0!');
+            }
+            if(!/https?:\/\//.test(imageUrl)) {
+                // lame regex test must fix later
+                errors.push('Image URL must be a valid URL.');
+            }
+            if(!category) {
+                errors.push('Category must be selected!');
+            }
+
+            if (errors.length) {
+                throw new Error(errors.join('\n'));
+            }
+            const product = await req.data.createProduct({
+                name,
+                description,
+                price,
+                imageUrl,
+                category,
+            });
             res.status(201).json({ ok: true, product });
         } catch (err) {
             res.status(400).json({ ok: false, error: err.message });
