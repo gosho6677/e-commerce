@@ -35,6 +35,7 @@ const Login = ({ history }) => {
                     id='email'
                     label='Email Address'
                     name='email'
+                    type='email'
                     autoComplete='email'
                     autoFocus
                 />

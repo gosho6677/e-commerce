@@ -14,7 +14,7 @@ const useItemsQueries = () => {
         if (category) {
             // remove the 's' (phones => phone)
             let categoryParam = category.slice(0, -1);
-            console.log(result);
+            
             state.items.ids.forEach(x => {
                 if (entities[x].category === categoryParam) {
                     result.push(entities[x]);

@@ -8,11 +8,21 @@ const tokenBlackList = [];
 
 module.exports = () => (req, res, next) => {
     req.auth = {
-        register: async ({ email, password, imageUrl = '' }) => {
+        register: async (email, password, imageUrl = '') => {
+            let emailInDb = await authServices.getUserByEmail(email);
+            if (emailInDb) {
+                throw new Error('Email is already taken.');
+            }
+
             const token = await registerToken(email, password, imageUrl);
             res.status(201).json({ ok: true, token });
         },
-        login: async ({ email, password }) => {
+        login: async (email, password) => {
+            const emailInDb = await authServices.getUserByEmail(email);
+            if (!emailInDb) {
+                throw new Error('Wrong email or password!');
+            }
+
             const token = await loginToken(email, password);
             res.json({ ok: true, token });
         },
@@ -43,7 +53,7 @@ async function loginToken(email, password) {
     if (!passwordMatch) {
         throw new Error('Incorrect password.');
     }
-    
+
     return createToken(user);
 }
 

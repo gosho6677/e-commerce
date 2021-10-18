@@ -16,6 +16,8 @@ export const register = async (body) => {
         // injecting the token to the variable so it can be saved in memory
         // and used wherever needed
         token = resp.token;
+    } else {
+        throw new Error(resp.error);
     }
 
     return resp;
@@ -30,9 +32,11 @@ export const login = async (body) => {
         body: JSON.stringify(body)
     });
     const resp = await request.json();
-
+    
     if (resp.ok) {
         token = resp.token;
+    } else {
+        throw new Error(resp.error);
     }
     return resp;
 };

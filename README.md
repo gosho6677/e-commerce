@@ -26,5 +26,5 @@
 - [x] add my orders page functionality
 - [x] sort
 - [x] search
-- [ ] change verify token to the async version
+- [x] change verify token to the async version
 - [ ] refactor code to remove express-validator

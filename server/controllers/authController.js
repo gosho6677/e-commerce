@@ -1,56 +1,36 @@
 const router = require('express').Router();
-const { body, validationResult } = require('express-validator');
 const { isGuest, isAuthorized } = require('../middlewares/guards');
-const authServices = require('../services/authServices');
 
-router.post('/register',
-    isGuest(),
-    body('email', 'Please provide a correct email.').isEmail().custom(async val => {
-        let email = await authServices.getUserByEmail(val);
-        if (email) {
-            throw new Error('Email is already taken.');
+router.post('/register', isGuest(), async (req, res) => {
+    const errors = [];
+
+    try {
+        let { email, password, imageUrl } = req.body;
+        if (/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/.test(email)) {
+            errors.push('Please provide a correct email.');
         }
-        return true;
-    }),
-    body('password', 'Password must be atleast 3 characters long!').isLength({ min: 3 }),
-    async (req, res) => {
-        const { errors } = validationResult(req);
-
-        try {
-            if (errors.length) {
-                throw new Error(errors.map(e => e.msg).join('\n'));
-            }
-
-            await req.auth.register(req.body);
-        } catch (err) {
-            res.status(400).json({ ok: false, error: err.message });
+        if (password.length < 3) {
+            errors.push('Password must be atleast 3 characters long!');
         }
-    });
-
-router.post('/login',
-    isGuest(),
-    body('email').custom(async val => {
-        const email = await authServices.getUserByEmail(val);
-        
-        if (!email) {
-            throw new Error('Email does not exist!');
+        if (errors.length) {
+            throw new Error(errors.join('\n'));
         }
-        return true;
-    }),
-    body('password', 'Password must be atleast 3 characters long').isLength({ min: 3 }),
-    async (req, res) => {
-        const { errors } = validationResult(req);
 
-        try {
-            if (errors.length) {
-                throw new Error(errors.map(e => e.msg).join('\n'));
-            }
+        await req.auth.register(email, password, imageUrl);
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
 
-            await req.auth.login(req.body);
-        } catch (err) {
-            res.status(400).json({ ok: false, error: err.message });
-        }
-    });
+router.post('/login', isGuest(), async (req, res) => {
+    try {
+        let { email, password } = req.body;
+
+        await req.auth.login(email, password);
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
 
 router.get('/logout', isAuthorized(), async (req, res) => {
     try {

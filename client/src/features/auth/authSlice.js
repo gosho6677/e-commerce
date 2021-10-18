@@ -76,7 +76,7 @@ export const authSlice = createSlice({
                 state.status = 'succeeded';
                 state.user = action.payload;
             })
-            .addCase(loginThunk.rejected, state => {
+            .addCase(loginThunk.rejected, (state, action) => {
                 state.status = 'error';
                 state.error = 'Invalid credentials!';
             });
