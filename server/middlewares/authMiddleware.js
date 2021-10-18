@@ -43,11 +43,11 @@ async function loginToken(email, password) {
     if (!passwordMatch) {
         throw new Error('Incorrect password.');
     }
-
+    
     return createToken(user);
 }
 
-async function createToken(user) {
+function createToken(user) {
     const userViewModel = {
         _id: user._id,
         email: user.email
@@ -57,22 +57,25 @@ async function createToken(user) {
         userViewModel.imageUrl = user.imageUrl;
     }
 
-    const token = jwt.sign(userViewModel, TOKEN_SECRET, { expiresIn: '12h' });
-    return token;
+    return new Promise((resolve, reject) => {
+        jwt.sign(userViewModel, TOKEN_SECRET, { expiresIn: '12h' }, (err, token) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(token);
+        });
+    });
 }
 
 function verifyToken(req) {
     const token = req.headers['authorization'];
     if (token) {
-        try {
-            const verifiedData = jwt.verify(token, TOKEN_SECRET);
-            if (!verifiedData || tokenBlackList.includes(token)) {
-                throw new Error();
+        jwt.verify(token, TOKEN_SECRET, (err, verifiedData) => {
+            if (err || tokenBlackList.includes(token)) {
+                return false;
             }
             req.user = verifiedData;
-        } catch (err) {
-            return false;
-        }
+        });
     }
     return true;
 }
