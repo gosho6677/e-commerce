@@ -3,12 +3,13 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Typography';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTotalItems, sortByAction } from './itemsSlice';
 import { useEffect, useState } from 'react';
 
-const Filters = () => {
+const Filters = ({ searchQuery, setSearchQuery }) => {
     const [sortBy, setSortBy] = useState('name');
     const itemsLength = useSelector(selectTotalItems);
     const dispatch = useDispatch();
@@ -19,9 +20,16 @@ const Filters = () => {
 
     return (
         <Stack direction='row' alignItems='center' className='dashboard-items-stack' justifyContent='space-between'>
-            <Typography component='span' className='dashboard-items-total'>{itemsLength} items</Typography>
+            <Typography component='span' className='dashboard-items-total'>{itemsLength} items total.</Typography>
             <Stack direction='row' alignItems='center'>
-                <TextField id='standard-basic' label='Search' variant='standard' />
+                <TextField
+                    id='standard-basic'
+                    label='Search'
+                    variant='standard'
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                />
+                <Button></Button>
                 <Typography component='span'>Sort by:</Typography>
                 <Select
                     value={sortBy}

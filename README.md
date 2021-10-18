@@ -24,6 +24,7 @@
 - [x] add order controller/service
 - [x] add my orders page template
 - [x] add my orders page functionality
-- [ ] sort
-- [ ] search
+- [x] sort
+- [x] search
+- [ ] change verify token to the async version
 - [ ] refactor code to remove express-validator
