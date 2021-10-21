@@ -15,6 +15,10 @@ const createProduct = async (payload) => {
     return product;
 };
 
+const editProduct = async (payload, productId) => {
+    return await Product.findByIdAndUpdate(productId, payload, { new: true });
+};
+
 const deleteProduct = async (productId) => {
     return await Product.findByIdAndDelete(productId);
 };
@@ -23,5 +27,6 @@ module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
+    editProduct,
     deleteProduct,
 };

@@ -12,7 +12,7 @@ import { addToCartThunk, selectCartId } from '../cart/cartSlice';
 import { selectUserId } from '../auth/authSlice';
 
 const Details = ({ match, history }) => {
-    const itemId = match.params.id;
+    const itemId = match.params.itemId;
     const userId = useSelector(selectUserId);
     const cartId = useSelector(selectCartId);
     const status = useSelector(state => state.user.status);
@@ -21,7 +21,7 @@ const Details = ({ match, history }) => {
     const dispatch = useDispatch();
     // TODO: fix problem on page reload to fetch the selected 
     // id instead to select it through redux store
-    
+
     const addToCartHandler = e => {
         dispatch(addToCartThunk({
             cartId,
@@ -29,6 +29,10 @@ const Details = ({ match, history }) => {
             quantity: 1,
         }));
         history.push('/cart');
+    };
+
+    const editRedirectHandler = e => {
+        history.push(`/items/edit/${itemId}`);
     };
 
     const deleteItemHandler = e => {
@@ -52,12 +56,15 @@ const Details = ({ match, history }) => {
                 <Stack direction='column' alignItems='center'>
                     <Typography className='details-price'>${item?.price}</Typography>
                     <Divider />
-                    {/* shows btn if user is logged(succeeded) */}
+                    {/* shows btns depending if user is logged(succeeded)/owner */}
                     {status === 'succeeded'
-                        ? isOwner 
-                            ? <Button onClick={deleteItemHandler} variant='contained'>Delete</Button>
+                        ? isOwner
+                            ? <Stack direction='row' gap='5px'>
+                                <Button onClick={deleteItemHandler} color='error' variant='contained'>Delete</Button>
+                                <Button onClick={editRedirectHandler} variant='contained'>Edit</Button>
+                            </Stack>
                             : <Button onClick={addToCartHandler} variant='contained'>Add to cart</Button>
-                        : <Typography variant='h4' color='text.secondary' sx={{textAlign: 'center'}}>If you want to purchase this product, please login or register.</Typography>
+                        : <Typography variant='h4' color='text.secondary' sx={{ textAlign: 'center' }}>If you want to purchase this product, please login or register.</Typography>
                     }
                 </Stack>
             </Box>

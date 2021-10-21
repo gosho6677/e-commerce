@@ -17,7 +17,7 @@ const isOwner = () => async (req, res, next) => {
     let product = await req.data.getProductById(productId);
     
     if(req.user && product && (req.user._id == product.creatorId)) {
-        // preloading product to avoid duplicated requests
+        // preloading product to avoid duplicated requests for future use
         req.product = product;
         next();
     } else {

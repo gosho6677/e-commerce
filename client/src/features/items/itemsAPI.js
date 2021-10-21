@@ -18,6 +18,18 @@ export const createItem = (body) => {
         .then(res => res.json());
 };
 
+export const editItem = (body, productId) => {
+    return fetch(`${baseUrl}/edit/${productId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify(body)
+    })
+        .then(res => res.json());
+};
+
 export const deleteItem = (itemId) => {
     return fetch(`${baseUrl}/${itemId}`, {
         method: 'DELETE',

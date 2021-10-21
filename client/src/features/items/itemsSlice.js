@@ -1,5 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { createItem, deleteItem, getAllItems } from "./itemsAPI";
+import { createItem, deleteItem, editItem, getAllItems } from "./itemsAPI";
 
 const itemsAdapter = createEntityAdapter({
     selectId: (book) => book._id,
@@ -8,7 +8,8 @@ const itemsAdapter = createEntityAdapter({
 
 const initialState = itemsAdapter.getInitialState({
     status: 'idle',
-    error: ''
+    error: '',
+    notification: '',
 });
 
 export const getAllItemsThunk = createAsyncThunk(
@@ -34,6 +35,24 @@ export const createItemThunk = createAsyncThunk(
         }
 
         const resp = await createItem({ name, description, category, price, imageUrl });
+
+        if (!resp.ok) {
+            throw new Error(resp.error);
+        }
+        return resp.product;
+    }
+);
+
+export const editItemThunk = createAsyncThunk(
+    'items/edit',
+    async (body) => {
+        let { name, description, category, price, imageUrl, productId } = body;
+
+        if (!name || description.length < 5 || !category || price < 0 || !imageUrl.startsWith('https://')) {
+            throw new Error('All fields are required!');
+        }
+
+        const resp = await editItem({ name, description, category, price, imageUrl }, productId);
 
         if (!resp.ok) {
             throw new Error(resp.error);
@@ -81,6 +100,9 @@ export const itemsSlice = createSlice({
             state.status = state.ids.length ? 'succeeded' : 'idle';
             state.error = '';
         },
+        removeNotification: state => {
+            state.notification = '';
+        },
     },
     extraReducers: builder => {
         builder
@@ -89,6 +111,7 @@ export const itemsSlice = createSlice({
             })
             .addCase(createItemThunk.fulfilled, (state, action) => {
                 state.status = 'succeeded';
+                state.notification = 'Item created successfully!';
                 itemsAdapter.addOne(state, action.payload);
             })
             .addCase(createItemThunk.rejected, (state, action) => {
@@ -105,6 +128,23 @@ export const itemsSlice = createSlice({
                 itemsAdapter.setMany(state, action.payload);
             })
             .addCase(getAllItemsThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
+
+        builder
+            .addCase(editItemThunk.pending, state => {
+                state.status = 'loading';
+            })
+            .addCase(editItemThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.notification = 'Edit successful!';
+                itemsAdapter.updateOne(state, {
+                    id: action.payload._id,
+                    changes: action.payload
+                });
+            })
+            .addCase(editItemThunk.rejected, (state, action) => {
                 state.status = 'error';
                 state.error = action.error.message || '';
             });
@@ -140,5 +180,5 @@ export const {
     selectById: selectItemById,
     selectTotal: selectTotalItems,
 } = itemsAdapter.getSelectors((state) => state.items);
-export const { sortByAction, removeItemError } = itemsSlice.actions;
+export const { sortByAction, removeItemError, removeNotification } = itemsSlice.actions;
 export default itemsSlice.reducer;

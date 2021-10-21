@@ -29,7 +29,8 @@
 - [x] refactor code to remove express-validator
 - [x] add creatorId to products
 - [x] add my listings page template
-- [ ] allow owner to edit/delete his listing
+- [x] allow owner to edit/delete his listing
+- [x] add success notifications
 - [ ] add sale model
 - [ ] make individual sale document to each product to notify owner when user orders
 - [ ] add my sales page template 
