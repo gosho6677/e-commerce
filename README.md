@@ -4,7 +4,6 @@
 - [x] add create item template
 - [x] add create item functionality
 - [x] Create page
-- [ ] show create page only for admin
 - [x] add get all posts functionality
 - [x] test data
 - [x] Details page template
@@ -27,4 +26,10 @@
 - [x] sort
 - [x] search
 - [x] change verify token to the async version
-- [ ] refactor code to remove express-validator
+- [x] refactor code to remove express-validator
+- [x] add creatorId to products
+- [ ] add my listings page template
+- [ ] allow owner to edit/delete his listing
+- [ ] add sale model
+- [ ] make individual sale document to each product to notify owner when user orders
+- [ ] add my sales page template 

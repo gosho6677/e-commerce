@@ -98,6 +98,20 @@ export const itemsSlice = createSlice({
     }
 });
 
+export const selectUserListings = (state) => {
+    let result = [];
+    if(state.user.status === 'succeeded') {
+        let userId = state.user.user._id;
+        state.items.ids.forEach(x => {
+            let entities = state.items.entities;
+            if(entities[x].creatorId === userId) {
+                result.push(entities[x]);
+            }  
+        });
+    }
+    return result;
+};
+
 export const {
     selectAll: selectAllItems,
     selectById: selectItemById,

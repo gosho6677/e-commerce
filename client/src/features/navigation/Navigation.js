@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import './Navigation.css';
 
 import { Link, useHistory } from 'react-router-dom';
@@ -112,6 +113,9 @@ const Navigation = () => {
                             >
                                 <MenuItem onClick={() => history.push('/my-orders')}>
                                     <Avatar /> My orders
+                                </MenuItem>
+                                <MenuItem onClick={() => history.push('/my-listings')}>
+                                    <FormatListBulletedIcon sx={{ marginRight: '7px' }} /> My Listings
                                 </MenuItem>
                                 <Divider />
                                 <MenuItem onClick={logoutHandler}>

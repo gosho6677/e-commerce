@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 const ItemCard = ({ item }) => {
     return (
         <Grid item className='dashboard-items-item'>
-            <Card sx={{ maxWidth: 345 }} className='dashboard-items-card'>
+            <Card sx={{ maxWidth: '345px' }} className='dashboard-items-card'>
                 <CardMedia
                     component='img'
                     image={item.imageUrl}

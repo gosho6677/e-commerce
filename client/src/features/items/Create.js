@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createItemThunk } from './itemsSlice';
 
-const Create = () => {
+const Create = ({ history }) => {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('phone');
     const [price, setPrice] = useState(0);
@@ -26,6 +26,7 @@ const Create = () => {
     const createItemHandler = e => {
         e.preventDefault();
         dispatch(createItemThunk({ name, category, price, imageUrl, description }));
+        history.push('/');
     };
 
     return (
