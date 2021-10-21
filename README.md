@@ -28,7 +28,7 @@
 - [x] change verify token to the async version
 - [x] refactor code to remove express-validator
 - [x] add creatorId to products
-- [ ] add my listings page template
+- [x] add my listings page template
 - [ ] allow owner to edit/delete his listing
 - [ ] add sale model
 - [ ] make individual sale document to each product to notify owner when user orders

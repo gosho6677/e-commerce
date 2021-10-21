@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { isAuthorized } = require('../middlewares/guards');
+const { isAuthorized, isOwner } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
     try {
@@ -51,6 +51,17 @@ router.post('/', isAuthorized(), async (req, res) => {
             creatorId: req.user._id
         });
         res.status(201).json({ ok: true, product });
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
+
+router.delete('/:productId', isOwner(), async (req, res) => {
+    try {
+        let productId = req.params.productId;
+        await req.data.deleteProduct(productId);
+
+        res.json({ ok: true });
     } catch (err) {
         res.status(400).json({ ok: false, error: err.message });
     }

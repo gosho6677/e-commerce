@@ -12,7 +12,21 @@ const isGuest = () => (req, res, next) => {
     next();
 };
 
+const isOwner = () => async (req, res, next) => {
+    let productId = req.params.productId;
+    let product = await req.data.getProductById(productId);
+    
+    if(req.user && product && (req.user._id == product.creatorId)) {
+        // preloading product to avoid duplicated requests
+        req.product = product;
+        next();
+    } else {
+        return res.status(401).json({ ok: false, error: 'Unauthorized request.' });
+    }
+};
+
 module.exports = {
     isAuthorized,
     isGuest,
+    isOwner,
 };

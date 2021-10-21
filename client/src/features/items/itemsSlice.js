@@ -1,5 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { createItem, getAllItems } from "./itemsAPI";
+import { createItem, deleteItem, getAllItems } from "./itemsAPI";
 
 const itemsAdapter = createEntityAdapter({
     selectId: (book) => book._id,
@@ -42,13 +42,26 @@ export const createItemThunk = createAsyncThunk(
     }
 );
 
+export const deleteItemThunk = createAsyncThunk(
+    'items/delete',
+    async (itemId) => {
+        const resp = await deleteItem(itemId);
+
+        if (!resp.ok) {
+            throw new Error(resp.error);
+        }
+
+        return itemId;
+    }
+);
+
 export const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
         sortByAction: (state, action) => {
             let entities = state.entities;
-            if(action.payload === 'lowestPrice') {
+            if (action.payload === 'lowestPrice') {
                 state.ids.sort((a, b) => {
                     return entities[a].price - entities[b].price;
                 });
@@ -95,18 +108,28 @@ export const itemsSlice = createSlice({
                 state.status = 'error';
                 state.error = action.error.message || '';
             });
+
+        builder
+            .addCase(deleteItemThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                itemsAdapter.removeOne(state, action.payload);
+            })
+            .addCase(deleteItemThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
     }
 });
 
 export const selectUserListings = (state) => {
     let result = [];
-    if(state.user.status === 'succeeded') {
+    if (state.user.status === 'succeeded') {
         let userId = state.user.user._id;
         state.items.ids.forEach(x => {
             let entities = state.items.entities;
-            if(entities[x].creatorId === userId) {
+            if (entities[x].creatorId === userId) {
                 result.push(entities[x]);
-            }  
+            }
         });
     }
     return result;

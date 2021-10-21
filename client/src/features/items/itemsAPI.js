@@ -15,5 +15,15 @@ export const createItem = (body) => {
         },
         body: JSON.stringify(body)
     })
-    .then(res => res.json());
+        .then(res => res.json());
+};
+
+export const deleteItem = (itemId) => {
+    return fetch(`${baseUrl}/${itemId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token
+        }
+    })
+        .then(res => res.json());
 };

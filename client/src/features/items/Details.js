@@ -7,14 +7,17 @@ import Button from '@mui/material/Button';
 import './Details.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectItemById } from './itemsSlice';
+import { deleteItemThunk, selectItemById } from './itemsSlice';
 import { addToCartThunk, selectCartId } from '../cart/cartSlice';
+import { selectUserId } from '../auth/authSlice';
 
 const Details = ({ match, history }) => {
     const itemId = match.params.id;
+    const userId = useSelector(selectUserId);
     const cartId = useSelector(selectCartId);
     const status = useSelector(state => state.user.status);
     const item = useSelector(state => selectItemById(state, itemId));
+    const isOwner = (item && userId) ? item.creatorId === userId : null;
     const dispatch = useDispatch();
     // TODO: fix problem on page reload to fetch the selected 
     // id instead to select it through redux store
@@ -26,6 +29,11 @@ const Details = ({ match, history }) => {
             quantity: 1,
         }));
         history.push('/cart');
+    };
+
+    const deleteItemHandler = e => {
+        dispatch(deleteItemThunk(itemId));
+        history.push('/');
     };
 
     return (
@@ -46,7 +54,9 @@ const Details = ({ match, history }) => {
                     <Divider />
                     {/* shows btn if user is logged(succeeded) */}
                     {status === 'succeeded'
-                        ? <Button onClick={addToCartHandler} variant='contained'>Add to cart</Button>
+                        ? isOwner 
+                            ? <Button onClick={deleteItemHandler} variant='contained'>Delete</Button>
+                            : <Button onClick={addToCartHandler} variant='contained'>Add to cart</Button>
                         : <Typography variant='h4' color='text.secondary' sx={{textAlign: 'center'}}>If you want to purchase this product, please login or register.</Typography>
                     }
                 </Stack>

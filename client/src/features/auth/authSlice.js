@@ -91,5 +91,11 @@ export const authSlice = createSlice({
     }
 });
 
+export const selectUserId = state => {
+    if(state.user.status === 'succeeded') {
+        return state.user.user._id;
+    }
+};
+
 export const { removeUserError } = authSlice.actions;
 export default authSlice.reducer;
