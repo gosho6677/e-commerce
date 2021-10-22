@@ -20,12 +20,13 @@ router.post('/:cartId/add-item', isAuthorized(), async (req, res) => {
     try {
         const cartId = req.params.cartId;
         const productId = req.body.productId;
+        const productOwner = req.body.productOwner;
         const quantity = req.body.quantity;
 
         if(quantity < 1) {
             throw new Error('Quantity must be a positive integer!');
         }
-        const cart = await req.data.addToCart(cartId, productId, quantity);
+        const cart = await req.data.addToCart(cartId, productId, productOwner, quantity);
         res.status(201).json({ ok: true, cart });
     } catch (err) {
         res.json({ ok: false, error: err.message });

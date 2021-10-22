@@ -11,14 +11,14 @@ export const getCart = async () => {
         .then(res => res.json());
 };
 
-export const addToCart = async (cartId, productId, quantity) => {
+export const addToCart = async (cartId, productOwner, productId, quantity) => {
     return fetch(`${baseUrl}/${cartId}/add-item`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token
         },
-        body: JSON.stringify({ productId, quantity })
+        body: JSON.stringify({ productId, productOwner, quantity })
     })
         .then(res => res.json());
 };

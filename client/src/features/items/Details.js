@@ -25,6 +25,7 @@ const Details = ({ match, history }) => {
     const addToCartHandler = e => {
         dispatch(addToCartThunk({
             cartId,
+            productOwner: item.creatorId,
             productId: itemId,
             quantity: 1,
         }));

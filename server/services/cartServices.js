@@ -18,7 +18,7 @@ const createCart = async userId => {
     return cart;
 };
 
-const addToCart = async (cartId, productId, quantity) => {
+const addToCart = async (cartId, productId, productOwner, quantity) => {
     const cart = await Cart.findById(cartId).populate({
         path: 'items',
         populate: { path: 'product' }
@@ -28,6 +28,7 @@ const addToCart = async (cartId, productId, quantity) => {
     cart.bill += Number(product.price * quantity);
     cart.items.push({
         product: product,
+        productOwner,
         quantity,
     });
 

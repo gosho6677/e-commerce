@@ -3,10 +3,8 @@ const { Schema, model } = require('mongoose');
 const schema = new Schema({
     userId: { type: String, required: true },
     items: [{
-        product: {
-            type: Schema.Types.ObjectId,
-            ref: 'Product'
-        },
+        productOwner: { type: Schema.Types.ObjectId, ref: 'User' },
+        product: { type: Schema.Types.ObjectId, ref: 'Product' },
         quantity: {
             type: Number,
             min: 1,

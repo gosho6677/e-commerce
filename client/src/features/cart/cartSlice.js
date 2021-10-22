@@ -21,7 +21,7 @@ export const getCartThunk = createAsyncThunk(
 export const addToCartThunk = createAsyncThunk(
     'cart/add',
     async (body, { getState }) => {
-        let { cartId, productId, quantity } = body;
+        let { cartId, productOwner, productId, quantity } = body;
 
         if (!cartId || !productId || !quantity) {
             throw new Error('All data is required!');
@@ -34,7 +34,7 @@ export const addToCartThunk = createAsyncThunk(
             return { isPresent: true };
         }
 
-        const resp = await addToCart(cartId, productId, quantity);
+        const resp = await addToCart(cartId, productOwner, productId, quantity);
 
         if (!resp.ok) {
             throw new Error(resp.error);
@@ -111,6 +111,7 @@ export const cartSlice = createSlice({
             .addCase(addToCartThunk.fulfilled, (state, action) => {
                 state.status = 'succeeded';
 
+                // if the item is already in the cart return from reducer.
                 if(action.payload.isPresent) {
                     return;
                 }

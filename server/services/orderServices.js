@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
+const Sale = require('../models/Sale');
 
 const getOrders = async (userId) => {
     // nested population requried...
@@ -20,9 +21,13 @@ const getOrders = async (userId) => {
 
 const createOrder = async (cartId, orderPayload) => {
     const order = new Order(orderPayload);
+    const sales = [];
 
-    await order.save();
-    await Cart.findByIdAndDelete(cartId);
+    
+
+    console.log('cart items >>>',order.cart.items);
+    console.log('cart address >>>',order.shippingAddress);
+    await Promise.all([order.save(), Cart.findByIdAndDelete(cartId)]);
 };
 
 module.exports = {
