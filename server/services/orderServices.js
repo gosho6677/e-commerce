@@ -21,13 +21,16 @@ const getOrders = async (userId) => {
 
 const createOrder = async (cartId, orderPayload) => {
     const order = new Order(orderPayload);
-    const sales = [];
 
-    
+    // adjust each product to meet sale model requirements
+    const deliveryAddress = orderPayload.shippingAddress;
+    const sales = orderPayload.cart.items.map(x => {
+        x.status = 'pending';
+        x.deliveryAddress = deliveryAddress;
+        return x;
+    });
 
-    console.log('cart items >>>',order.cart.items);
-    console.log('cart address >>>',order.shippingAddress);
-    await Promise.all([order.save(), Cart.findByIdAndDelete(cartId)]);
+    await Promise.all([order.save(), Cart.findByIdAndDelete(cartId), Sale.insertMany(sales)]);
 };
 
 module.exports = {

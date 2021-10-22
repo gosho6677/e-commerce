@@ -17,7 +17,12 @@ async function start() {
     app.use(authMiddleware());
     app.use(dataMiddleware());
 
-    await databaseConfig(app);
+    try {
+        await databaseConfig();
+    } catch (err) {
+        console.error('Database error =>', err.message);
+    }
+    
     routesConfig(app);
 }
 

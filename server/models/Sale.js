@@ -6,6 +6,7 @@ const schema = new Schema({
     productOwner: { type: Schema.Types.ObjectId, ref: 'User' },
     status: { type: String, enum: ['pending', 'sent'], default: 'pending' },
     deliveryAddress: {
+        type: Object,
         name: { type: String, required: true },
         address: { type: String, required: true },
         city: { type: String, required: true },

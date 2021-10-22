@@ -26,7 +26,9 @@ const ReviewOrderStage = ({ shippingInfo, setStage }) => {
             cartId: cart._id,
             order: {
                 cart,
-                added: Date.now(),
+                // add 10.8 million milliseconds (3 hours) to adjust to Bulgarian time
+                // todo: fix later
+                added: Date.now() + 10_800_000,
                 shippingAddress: shippingInfo
             }
         }));

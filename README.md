@@ -31,6 +31,6 @@
 - [x] add my listings page template
 - [x] allow owner to edit/delete his listing
 - [x] add success notifications
-- [ ] add sale model
+- [x] add sale model
 - [ ] make individual sale document to each product to notify owner when user orders
 - [ ] add my sales page template 
