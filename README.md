@@ -35,4 +35,5 @@
 - [x] make individual sale document to each product to notify owner when user orders
 - [x] add salesSlice
 - [x] add sales controller/service
-- [ ] add my sales page template
+- [x] add my sales page template
+- [ ] make send product functionality in userSales
