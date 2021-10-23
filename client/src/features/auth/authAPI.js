@@ -1,4 +1,6 @@
-const baseUrl = 'http://localhost:5000/auth';
+import { apiDomain } from "../../constants";
+
+const baseUrl = `${apiDomain}/auth`;
 
 export let token = '';
 
@@ -32,7 +34,7 @@ export const login = async (body) => {
         body: JSON.stringify(body)
     });
     const resp = await request.json();
-    
+
     if (resp.ok) {
         token = resp.token;
     } else {

@@ -32,5 +32,7 @@
 - [x] allow owner to edit/delete his listing
 - [x] add success notifications
 - [x] add sale model
-- [ ] make individual sale document to each product to notify owner when user orders
-- [ ] add my sales page template 
+- [x] make individual sale document to each product to notify owner when user orders
+- [x] add salesSlice
+- [x] add sales controller/service
+- [ ] add my sales page template

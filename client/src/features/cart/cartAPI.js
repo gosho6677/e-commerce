@@ -1,6 +1,7 @@
 import { token } from '../auth/authAPI';
+import { apiDomain } from '../../constants';
 
-const baseUrl = 'http://localhost:5000/cart';
+const baseUrl = `${apiDomain}/cart`;
 
 export const getCart = async () => {
     return fetch(baseUrl, {

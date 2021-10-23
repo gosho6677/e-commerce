@@ -77,18 +77,6 @@ export const orderSlice = createSlice({
     }
 });
 
-// export const selectCartId = (state) => {
-//     if (state.cart.status === 'succeeded') {
-//         return state.cart.cart._id;
-//     }
-// };
-
-// export const selectCartItems = (state) => {
-//     if (state.cart.status === 'succeeded') {
-//         return state.cart.cart.items;
-//     }
-// };
-
 export const {
     removeOrderError,
 } = orderSlice.actions;

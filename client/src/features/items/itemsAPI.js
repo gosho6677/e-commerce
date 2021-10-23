@@ -1,6 +1,7 @@
 import { token } from '../auth/authAPI';
+import { apiDomain } from '../../constants';
 
-const baseUrl = 'http://localhost:5000/products';
+const baseUrl = `${apiDomain}/products`;
 
 export const getAllItems = () => {
     return fetch(baseUrl).then(resp => resp.json());

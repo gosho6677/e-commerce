@@ -19,6 +19,7 @@ import UserListings from './features/items/UserListings';
 import Edit from './features/items/Edit';
 import { getCartThunk } from './features/cart/cartSlice';
 import isAuth from './hoc/isAuth';
+import UserSales from './features/sales/UserSales';
 
 const App = () => {
     const userStatus = useSelector(state => state.user.status);
@@ -55,6 +56,7 @@ const App = () => {
                 <Route path='/category/:category' exact component={Dashboard} />
                 <Route path='/my-orders' exact component={isAuth(Orders)} />
                 <Route path='/my-listings' exact component={isAuth(UserListings)} />
+                <Route path='/my-sales' exact component={isAuth(UserSales)} />
                 <Route path='/cart' exact component={isAuth(Cart)} />
                 <Route path='/items/create' exact component={isAuth(Create)} />
                 <Route path='/items/edit/:itemId' exact component={isAuth(Edit)} />
