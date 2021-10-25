@@ -1,5 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { getAllUserSales } from './salesAPI';
+import { getAllUserSales, changeSaleStatus } from './salesAPI';
 
 const salesAdapter = createEntityAdapter({
     selectId: (sale) => sale._id
@@ -24,6 +24,19 @@ export const getAllUserSalesThunk = createAsyncThunk(
     }
 );
 
+export const changeSaleStatusThunk = createAsyncThunk(
+    'sales/changeStatus',
+    async (saleId) => {
+        const resp = await changeSaleStatus(saleId);
+
+        if (!resp.ok) {
+            throw new Error(resp.error);
+        }
+
+        return saleId;
+    }
+);
+
 export const salesSlise = createSlice({
     name: 'sales',
     initialState,
@@ -42,6 +55,19 @@ export const salesSlise = createSlice({
                 salesAdapter.setAll(state, action.payload);
             })
             .addCase(getAllUserSalesThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
+
+        builder
+            .addCase(changeSaleStatusThunk.pending, state => {
+                state.status = 'loading';
+            })
+            .addCase(changeSaleStatusThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                salesAdapter.updateOne(state, { id: action.payload, changes: { status: 'completed' } });
+            })
+            .addCase(changeSaleStatusThunk.rejected, (state, action) => {
                 state.status = 'error';
                 state.error = action.error.message || '';
             });

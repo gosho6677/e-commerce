@@ -15,6 +15,7 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import logo from '../../images/letter-t-bigger.png';
 import './Navigation.css';
 
 import { Link, useHistory } from 'react-router-dom';
@@ -53,7 +54,7 @@ const Navigation = () => {
                 <Toolbar>
                     <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
                         <Link className='nav-buttons' to='/'>
-                            E-commerce app
+                            <img src={logo} style={{ width: '45px', verticalAlign: 'middle' }} alt='logo' />
                         </Link>
                     </Typography>
                     {status === 'succeeded'

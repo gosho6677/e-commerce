@@ -11,3 +11,13 @@ export const getAllUserSales = () => {
     })
         .then(res => res.json());
 };
+
+export const changeSaleStatus = (saleId) => {
+    return fetch(`${baseUrl}/${saleId}/status`, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': token
+        }
+    })
+        .then(res => res.json());
+};

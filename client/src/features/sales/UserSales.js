@@ -10,22 +10,20 @@ import Typography from '@mui/material/Typography';
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUserSalesThunk, selectAllSales } from "./salesSlice";
+import { changeSaleStatusThunk, getAllUserSalesThunk, selectAllSales } from "./salesSlice";
 import LoadingSpinner from '../loading/LoadingSpinner';
 
 const UserSales = () => {
     const salesStatus = useSelector(state => state.sales.status);
     const sales = useSelector(selectAllSales);
     const dispatch = useDispatch();
-    console.log(sales);
 
     useEffect(() => {
         dispatch(getAllUserSalesThunk());
     }, [dispatch]);
 
-    const sendProductHandler = (productId) => () => {
-        // TODO: change sale status to completed in DB
-        console.log(productId);
+    const saleStatusHandler = (saleId) => () => {
+        dispatch(changeSaleStatusThunk(saleId));
     };
 
     if (salesStatus === 'loading') {
@@ -61,7 +59,7 @@ const UserSales = () => {
                                         {sale.status === 'pending'
                                             ? <>
                                                 <Typography variant='subtitle1'>pending</Typography>
-                                                <Button onClick={sendProductHandler(sale._id)} variant='contained'>
+                                                <Button onClick={saleStatusHandler(sale._id)} variant='contained'>
                                                     SEND
                                                 </Button>
                                             </>
@@ -77,7 +75,13 @@ const UserSales = () => {
 
                             );
                         })
-                        : <Typography variant='h3'>'You have no sales yet!'</Typography>}
+                        : <>
+                            <TableRow>
+                                <TableCell align="left">
+                                    <Typography variant='h3'>You have no sales yet!</Typography>
+                                </TableCell>
+                            </TableRow>
+                        </>}
                 </TableBody>
             </Table>
         </TableContainer>

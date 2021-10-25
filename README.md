@@ -36,4 +36,4 @@
 - [x] add salesSlice
 - [x] add sales controller/service
 - [x] add my sales page template
-- [ ] make send product functionality in userSales
+- [x] make send product functionality in userSales
