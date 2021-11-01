@@ -1,25 +1,12 @@
-import { token } from '../auth/authAPI';
 import { apiDomain } from '../../constants';
+import { jsonRequest } from '../../utils/jsonRequest';
 
 const baseUrl = `${apiDomain}/orders`;
 
 export const getOrders = () => {
-    return fetch(baseUrl, {
-        headers: {
-            'Authorization': token
-        }
-    })
-        .then(res => res.json());
+    return jsonRequest(baseUrl, undefined, undefined, true);
 };
 
 export const createOrder = (cartId, order) => {
-    return fetch(baseUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-        },
-        body: JSON.stringify({ cartId, order })
-    })
-        .then(res => res.json());
+    return jsonRequest(baseUrl, 'POST', { cartId, order }, true);
 };

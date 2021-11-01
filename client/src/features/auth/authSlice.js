@@ -12,11 +12,17 @@ export const registerThunk = createAsyncThunk(
     'user/register',
     async (userDetails) => {
         let { email, password, rePass, imageUrl } = userDetails;
+        if (!(/^[a-zA-Z]+@[a-z]{2,}\.[a-z]{2,4}$/.test(email))) {
+            throw new Error('Please provide a valid email!');
+        }
         if (!email || !password) {
             throw new Error('All fields are required!');
         }
         if (password !== rePass) {
             throw new Error('Passwords must match!');
+        }
+        if(!(/https?:\/\//.test(imageUrl))) {
+            throw new Error('Image must be a valid URL!');
         }
 
         const resp = await register({ email, password, imageUrl });

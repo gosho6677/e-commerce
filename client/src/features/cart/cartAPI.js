@@ -1,36 +1,26 @@
-import { token } from '../auth/authAPI';
 import { apiDomain } from '../../constants';
+import { jsonRequest } from '../../utils/jsonRequest';
 
 const baseUrl = `${apiDomain}/cart`;
 
 export const getCart = async () => {
-    return fetch(baseUrl, {
-        headers: {
-            'Authorization': token
-        }
-    })
-        .then(res => res.json());
+    return await jsonRequest(baseUrl, undefined, undefined, true);
 };
 
 export const addToCart = async (cartId, productOwner, productId, quantity) => {
-    return fetch(`${baseUrl}/${cartId}/add-item`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-        },
-        body: JSON.stringify({ productId, productOwner, quantity })
-    })
-        .then(res => res.json());
+    return await jsonRequest(
+        `${baseUrl}/${cartId}/add-item`,
+        'POST',
+        { productId, productOwner, quantity },
+        true
+    );
 };
 
 export const deleteFromCart = async (cartId, productId) => {
-    return fetch(`${baseUrl}/${cartId}/delete-item/${productId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-        }
-    })
-        .then(res => res.json());
+    return await jsonRequest(
+        `${baseUrl}/${cartId}/delete-item/${productId}`,
+        'DELETE',
+        undefined,
+        true
+    );
 };

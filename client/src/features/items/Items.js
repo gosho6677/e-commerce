@@ -25,7 +25,7 @@ const Items = () => {
         <Paper elevation={6} className='dashboard-items'>
             <Filters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             <Grid container className='dashboard-items-container'>
-                {status === 'succeeded'
+                {status !== 'idle'
                     ? items.map(i => <ItemCard item={i} key={i._id} />)
                     : <Typography variant='h2'>No items available...</Typography>
                 }

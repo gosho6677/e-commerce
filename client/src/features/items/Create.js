@@ -14,8 +14,14 @@ const Create = ({ history }) => {
 
     const createItemHandler = e => {
         e.preventDefault();
-        dispatch(createItemThunk({ name, category, price, imageUrl, description }));
-        history.push('/');
+        dispatch(createItemThunk({ name, category, price, imageUrl, description }))
+            .then((res) => {
+                if (res.error) {
+                    return;
+                }
+                history.push('/');
+            });
+
     };
 
     return (

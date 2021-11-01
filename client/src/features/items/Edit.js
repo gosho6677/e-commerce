@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editItemThunk, selectItemById } from "./itemsSlice";
 
-const Edit = ({ match }) => {
+const Edit = ({ match, history }) => {
     const itemId = match.params.itemId;
     const item = useSelector(state => selectItemById(state, itemId));
     const [name, setName] = useState(item.name || '');
@@ -22,7 +22,13 @@ const Edit = ({ match }) => {
             imageUrl,
             description,
             productId: itemId
-        }));
+        }))
+            .then(res => {
+                if (res.error) {
+                    return;
+                }
+                history.push(`/items/details/${itemId}`);
+            });
     };
 
     return (

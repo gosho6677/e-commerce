@@ -1,42 +1,20 @@
-import { token } from '../auth/authAPI';
 import { apiDomain } from '../../constants';
+import { jsonRequest } from '../../utils/jsonRequest';
 
 const baseUrl = `${apiDomain}/products`;
 
 export const getAllItems = () => {
-    return fetch(baseUrl).then(resp => resp.json());
+    return jsonRequest(baseUrl, undefined, undefined, false);
 };
 
 export const createItem = (body) => {
-    return fetch(baseUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-        },
-        body: JSON.stringify(body)
-    })
-        .then(res => res.json());
+    return jsonRequest(baseUrl, 'POST', body, true);
 };
 
 export const editItem = (body, productId) => {
-    return fetch(`${baseUrl}/edit/${productId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-        },
-        body: JSON.stringify(body)
-    })
-        .then(res => res.json());
+    return jsonRequest(`${baseUrl}/edit/${productId}`, 'PUT', body, true);
 };
 
 export const deleteItem = (itemId) => {
-    return fetch(`${baseUrl}/${itemId}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': token
-        }
-    })
-        .then(res => res.json());
+    return jsonRequest(`${baseUrl}/${itemId}`, 'DELETE', undefined, true);
 };

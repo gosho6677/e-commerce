@@ -37,3 +37,4 @@
 - [x] add sales controller/service
 - [x] add my sales page template
 - [x] make send product functionality in userSales
+- [x] create jsonRequest function to remove repeated code

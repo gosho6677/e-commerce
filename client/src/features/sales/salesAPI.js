@@ -1,23 +1,12 @@
 import { apiDomain } from "../../constants";
-import { token } from '../auth/authAPI';
+import { jsonRequest } from "../../utils/jsonRequest";
 
 let baseUrl = `${apiDomain}/sales`;
 
 export const getAllUserSales = () => {
-    return fetch(baseUrl, {
-        headers: {
-            'Authorization': token
-        }
-    })
-        .then(res => res.json());
+    return jsonRequest(baseUrl, undefined, undefined, true);
 };
 
 export const changeSaleStatus = (saleId) => {
-    return fetch(`${baseUrl}/${saleId}/status`, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': token
-        }
-    })
-        .then(res => res.json());
+    return jsonRequest(`${baseUrl}/${saleId}/status`, 'PATCH', undefined, true);
 };
