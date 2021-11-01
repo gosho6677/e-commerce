@@ -55,6 +55,10 @@ export const authSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        forcedLogout: state => {
+            state.status = 'idle';
+            state.user = null;
+        },
         removeUserError: state => {
             state.status = state.user !== null ? 'succeeded' : 'idle';
             state.error = '';
@@ -103,5 +107,5 @@ export const selectUserId = state => {
     }
 };
 
-export const { removeUserError } = authSlice.actions;
+export const { forcedLogout, removeUserError } = authSlice.actions;
 export default authSlice.reducer;

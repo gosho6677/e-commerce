@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 const isAuth = WrappedComponent => {
     const Component = props => {
-        const history = useHistory();
+        // const history = useHistory();
         const userStatus = useSelector(state => state.user.status);
 
         if(userStatus === 'idle') {
-            history.push('/auth/login');
+            // history.push('/auth/login');
             return null;
         }
 

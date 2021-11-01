@@ -75,5 +75,5 @@ export const salesSlise = createSlice({
 });
 
 export const { selectAll: selectAllSales } = salesAdapter.getSelectors(state => state.sales);
-export const { removeOrderError } = salesSlise.actions;
+export const { removeSalesError } = salesSlise.actions;
 export default salesSlise.reducer;

@@ -6,7 +6,7 @@ const { TOKEN_SECRET } = require('../config');
 
 const tokenBlackList = [];
 
-module.exports = () => (req, res, next) => {
+module.exports = () => async (req, res, next) => {
     req.auth = {
         register: async (email, password, imageUrl = '') => {
             let emailInDb = await authServices.getUserByEmail(email);
@@ -32,11 +32,11 @@ module.exports = () => (req, res, next) => {
             res.json({ ok: true });
         }
     };
-
-    if (verifyToken(req)) {
+    
+    if (await verifyToken(req)) {
         next();
     } else {
-        res.status(401).json({ ok: false, error: 'Invalid token!' });
+        res.status(401).json({ ok: false, error: 'Session expired! Please try logging in again!' });
     }
 };
 
@@ -69,6 +69,7 @@ function createToken(user) {
 
     return new Promise((resolve, reject) => {
         jwt.sign(userViewModel, TOKEN_SECRET, { expiresIn: '12h' }, (err, token) => {
+        // jwt.sign(userViewModel, TOKEN_SECRET, { expiresIn: '5000' }, (err, token) => {
             if (err) {
                 reject(err);
             }
@@ -77,15 +78,18 @@ function createToken(user) {
     });
 }
 
-function verifyToken(req) {
+async function verifyToken(req) {
     const token = req.headers['authorization'];
     if (token) {
-        jwt.verify(token, TOKEN_SECRET, (err, verifiedData) => {
+        return jwt.verify(token, TOKEN_SECRET, (err, verifiedData) => {
             if (err || tokenBlackList.includes(token)) {
+                console.log(err);
                 return false;
             }
             req.user = verifiedData;
+            return true;
         });
+    } else {
+        return true;
     }
-    return true;
 }

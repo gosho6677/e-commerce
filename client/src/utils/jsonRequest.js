@@ -24,10 +24,14 @@ export async function jsonRequest(url, method, body, isAuthorized) {
     }
 
     let response = await fetch(url, options);
-    // if (!response.ok) {
-    //     let message = await response.text();
-    //     throw new Error(`${response.status}: ${response.statusText}\n${message}`);
-    // }
+    if (!response.ok) {
+        // let message = await response.text();
+        // throw new Error(`${response.status}: ${response.statusText}\n${message}`);
+        // console.log(`${response.status}`);
+        // if(response.status === 401) {
+        //     return await logout();
+        // }
+    }
 
     // let result = undefined;
     // if (!skipResult) {

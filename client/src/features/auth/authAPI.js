@@ -9,6 +9,7 @@ export const register = async (body) => {
     const resp = await jsonRequest(`${baseUrl}/register`, 'POST', body, false);
 
     if (resp.ok) {
+        // bad option because it doesn't persist through browser refresh:
         // injecting the token to the variable so it can be saved in memory
         // and used wherever needed
         token = resp.token;
