@@ -21,7 +21,7 @@ export const registerThunk = createAsyncThunk(
         if (password !== rePass) {
             throw new Error('Passwords must match!');
         }
-        if(!(/https?:\/\//.test(imageUrl))) {
+        if (!(/https?:\/\//.test(imageUrl))) {
             throw new Error('Image must be a valid URL!');
         }
 
@@ -55,6 +55,10 @@ export const authSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        loginOnReload: (state, action) => {
+            state.status = 'succeeded';
+            state.user = action.payload;
+        },
         forcedLogout: state => {
             state.status = 'idle';
             state.user = null;
@@ -102,10 +106,10 @@ export const authSlice = createSlice({
 });
 
 export const selectUserId = state => {
-    if(state.user.status === 'succeeded') {
+    if (state.user.status === 'succeeded') {
         return state.user.user._id;
     }
 };
 
-export const { forcedLogout, removeUserError } = authSlice.actions;
+export const { loginOnReload, forcedLogout, removeUserError } = authSlice.actions;
 export default authSlice.reducer;

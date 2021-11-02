@@ -20,6 +20,9 @@ import Edit from './features/items/Edit';
 import { getCartThunk } from './features/cart/cartSlice';
 import isAuth from './hoc/isAuth';
 import UserSales from './features/sales/UserSales';
+import { getAccessToken, getRefreshToken } from './utils/tokenService';
+import jwt_decode from 'jwt-decode';
+import { loginOnReload } from './features/auth/authSlice';
 
 const App = () => {
     const userStatus = useSelector(state => state.user.status);
@@ -31,6 +34,18 @@ const App = () => {
     const salesError = useSelector(state => state.sales.error);
     const itemsNotification = useSelector(state => state.items.notification);
     const dispatch = useDispatch();
+
+    // check if on reload there is token in localstorage
+    useEffect(() => {
+        const token = getAccessToken();
+        const refreshToken = getRefreshToken();
+
+        if(token && refreshToken && userStatus === 'idle') {
+            let user = jwt_decode(refreshToken);
+            dispatch(loginOnReload(user));
+        }
+
+    }, [dispatch, userStatus]);
 
     // get existing or new cart for logged users
     useEffect(() => {

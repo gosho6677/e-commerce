@@ -1,6 +1,15 @@
 const router = require('express').Router();
 const { isGuest, isAuthorized } = require('../middlewares/guards');
 
+router.get('/refresh', isAuthorized(), async (req, res) => {
+    try {
+        let token = await req.auth.createToken(req.user);
+        res.status(201).json({ ok: true, token });
+    } catch (err) {
+        console.error(err);
+    } 
+});
+
 router.post('/register', isGuest(), async (req, res) => {
     const errors = [];
 

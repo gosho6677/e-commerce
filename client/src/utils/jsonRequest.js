@@ -1,4 +1,4 @@
-import { token } from "../features/auth/authAPI";
+import { getAccessToken, setAccessToken, getRefreshToken } from "./tokenService";
 
 export async function jsonRequest(url, method, body, isAuthorized) {
     if (method === undefined) {
@@ -11,7 +11,7 @@ export async function jsonRequest(url, method, body, isAuthorized) {
     }
 
     if (isAuthorized) {
-        headers['Authorization'] = token;
+        headers['Authorization'] = getAccessToken();
     }
 
     let options = {
@@ -33,10 +33,24 @@ export async function jsonRequest(url, method, body, isAuthorized) {
         // }
     }
 
-    // let result = undefined;
-    // if (!skipResult) {
-    //     result = 
-    // }
+    let result = await response.json();
 
-    return await response.json();
+    if (!result.ok && result.error === 'Access token expired!') {
+        let resp = await fetch('http://localhost:5000/auth/refresh', {
+            headers: {
+                'X-Authorization': getRefreshToken()
+            }
+        });
+        let response = await resp.json();
+        if(!response.ok) {
+            throw new Error(response.error);
+        }
+        // save the new access token
+        setAccessToken(response.token);
+        // recurse now with fresh access token
+        // with hopes that I didn't make a scenario with infinite loop
+        return jsonRequest(url, method, body, isAuthorized);
+    }
+
+    return result;
 }

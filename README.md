@@ -38,3 +38,5 @@
 - [x] add my sales page template
 - [x] make send product functionality in userSales
 - [x] create jsonRequest function to remove repeated code
+- [x] implement refresh token functionality FE/BE
+- [x] adjust token to be kept in local storage or cookie

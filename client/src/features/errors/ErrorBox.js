@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { delAccessToken, delRefreshToken } from '../../utils/tokenService';
 import { forcedLogout, removeUserError } from '../auth/authSlice';
 import { removeCartError } from '../cart/cartSlice';
 import { removeItemError } from '../items/itemsSlice';
@@ -29,7 +30,9 @@ const ErrorBox = ({ itemsError, userError, cartError, orderError, salesError }) 
             cartError === expiredSessionError ||
             salesError === expiredSessionError ||
             orderError === expiredSessionError) {
-                dispatch(forcedLogout());
+            dispatch(forcedLogout());
+            delRefreshToken();
+            delAccessToken();
         }
     }, [dispatch, itemsError, userError, cartError, orderError, salesError]);
 
