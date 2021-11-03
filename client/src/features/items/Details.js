@@ -19,8 +19,6 @@ const Details = ({ match, history }) => {
     const item = useSelector(state => selectItemById(state, itemId));
     const isOwner = (item && userId) ? item.creatorId === userId : null;
     const dispatch = useDispatch();
-    // TODO: fix problem on page reload to fetch the selected 
-    // id instead to select it through redux store
 
     const addToCartHandler = e => {
         dispatch(addToCartThunk({

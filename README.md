@@ -40,3 +40,5 @@
 - [x] create jsonRequest function to remove repeated code
 - [x] implement refresh token functionality FE/BE
 - [x] adjust token to be kept in local storage or cookie
+- [x] Check each component behaviour with the persisting auth
+- [x] fix on reload to fetch all items in store

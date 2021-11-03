@@ -23,6 +23,7 @@ import UserSales from './features/sales/UserSales';
 import { getAccessToken, getRefreshToken } from './utils/tokenService';
 import jwt_decode from 'jwt-decode';
 import { loginOnReload } from './features/auth/authSlice';
+import useGetItemsIfIdle from './hooks/useGetItemsIfIdle';
 
 const App = () => {
     const userStatus = useSelector(state => state.user.status);
@@ -34,6 +35,10 @@ const App = () => {
     const salesError = useSelector(state => state.sales.error);
     const itemsNotification = useSelector(state => state.items.notification);
     const dispatch = useDispatch();
+
+    // fetching all items in store on reload/load if it's empty
+    // using it here instead in each component which uses or redirects to dashboard
+    useGetItemsIfIdle();
 
     // check if on reload there is token in localstorage
     useEffect(() => {

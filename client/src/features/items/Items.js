@@ -5,21 +5,12 @@ import './Items.css';
 
 import Filters from './Filters';
 import ItemCard from './ItemCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getAllItemsThunk } from './itemsSlice';
+import { useSelector } from 'react-redux';
 import useItemsQueries from '../../hooks/useItemsQueries';
 
 const Items = () => {
     const status = useSelector(state => state.items.status);
     const { items, searchQuery, setSearchQuery } = useItemsQueries();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(getAllItemsThunk());
-        }
-    }, [dispatch, status]);
 
     return (
         <Paper elevation={6} className='dashboard-items'>
