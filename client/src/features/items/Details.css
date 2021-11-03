@@ -12,7 +12,8 @@
 }
 
 .details-img {
-    max-width: 100%;
+    max-width: 700px;
+    width: 100%;
 }
 
 .details-item-content {
@@ -22,10 +23,17 @@
 
 .details-item-description {
     margin: 1rem 0;
+    padding: .5rem;
     text-align: justify;
+    overflow: scroll;
+    overflow-x: hidden;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+    max-height: 58vh;
 }
 
 .details-price {
     font-size: xx-large;
     margin: 1rem 0;
 }
+

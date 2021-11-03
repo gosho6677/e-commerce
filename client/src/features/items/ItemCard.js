@@ -23,9 +23,9 @@ const ItemCard = ({ item }) => {
                 <CardContent>
                     <Typography gutterBottom variant='h5' component='div'>
                         {item.name.length > 18
-                            ? <Tooltip title={item.name}>
-                                <Typography>
-                                    {item.name.slice(0, 20) + '...'}
+                            ? <Tooltip title={item.name} arrow>
+                                <Typography gutterBottom variant='h5' component='div'>
+                                    {item.name.slice(0, 23) + '...'}
                                 </Typography>
                             </Tooltip>
                             : item.name
