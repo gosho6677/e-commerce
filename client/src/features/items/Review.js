@@ -60,7 +60,7 @@ const Review = () => {
                     aria-label='empty textarea'
                     className='create-review-comment'
                     minRows='10'
-                    placeholder='Comment here'
+                    placeholder='Comment here...'
                     required
                     value={comment}
                     onChange={e => setComment(e.target.value)}
@@ -76,6 +76,7 @@ const Review = () => {
 
             {/* reviews container */}
             <Grid container direction='row' justifyContent='center' gap='10px' m='10px'>
+                
                 <Grid container direction='row' justifyContent='flex-start' sx={{ border: '1px solid lightgray' }}>
                     <Grid item>
                         <Grid container direction='column' sx={{ p: '10px', m: '10px', width: '250px' }}>
@@ -97,78 +98,12 @@ const Review = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item>
+                    <Grid item flex='1'>
                         <Typography variant='h5' sx={{
                             overflowWrap: 'break-word',
                             wordBreak: 'break-all',
                             // width: '80%',
-                            maxWidth: '1000px',
-                            p: '10px'
-                        }}>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus debitis distinctio, sit voluptates quisquam, aspernatur impedit dolor unde eligendi aperiam error magni deserunt optio assumenda expedita amet vel. Corporis quia et veniam dolores a, labore eaque repellendus. Sunt odit quia fuga explicabo voluptatibus doloribus esse, asperiores, velit, earum tenetur veniam eos nisi laudantium temporibus illum quisquam saepe repellendus? Corrupti suscipit odit voluptas animi delectus unde veniam tempora aliquam fugit minima vel voluptatum excepturi maxime doloribus id iure iste accusamus ut maiores, nisi natus, velit optio quam quos. Necessitatibus esse, molestias minima eum laudantium error qui voluptate quidem, ex adipisci autem!
-                        </Typography>
-                    </Grid>
-                </Grid>
-                <Grid container direction='row' justifyContent='flex-start' sx={{ border: '1px solid lightgray' }}>
-                    <Grid item>
-                        <Grid container direction='column' sx={{ p: '10px', m: '10px', width: '250px' }}>
-                            <Grid item>
-                                <Avatar
-                                    sx={{ width: 60, height: 60 }}
-                                    srcSet={'https://i.pinimg.com/550x/7d/1a/3f/7d1a3f77eee9f34782c6f88e97a6c888.jpg'}
-                                    alt="comment user pic"
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Typography variant='h6' sx={{ wordBreak: 'break-all' }}>georig@palsldoaskdaosdksadsaadsdasds</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography variant='body1' color='text.secondary'>Added: 17 oct 2035</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Rating name="read-only" value={3} readOnly />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant='h5' sx={{
-                            overflowWrap: 'break-word',
-                            wordBreak: 'break-all',
-                            // width: '80%',
-                            maxWidth: '1000px',
-                            p: '10px'
-                        }}>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus debitis distinctio, sit voluptates quisquam, aspernatur impedit dolor unde eligendi aperiam error magni deserunt optio assumenda expedita amet vel. Corporis quia et veniam dolores a, labore eaque repellendus. Sunt odit quia fuga explicabo voluptatibus doloribus esse, asperiores, velit, earum tenetur veniam eos nisi laudantium temporibus illum quisquam saepe repellendus? Corrupti suscipit odit voluptas animi delectus unde veniam tempora aliquam fugit minima vel voluptatum excepturi maxime doloribus id iure iste accusamus ut maiores, nisi natus, velit optio quam quos. Necessitatibus esse, molestias minima eum laudantium error qui voluptate quidem, ex adipisci autem!
-                        </Typography>
-                    </Grid>
-                </Grid>
-                <Grid container direction='row' justifyContent='flex-start' sx={{ border: '1px solid lightgray' }}>
-                    <Grid item>
-                        <Grid container direction='column' sx={{ p: '10px', m: '10px', width: '250px' }}>
-                            <Grid item>
-                                <Avatar
-                                    sx={{ width: 60, height: 60 }}
-                                    srcSet={'https://i.pinimg.com/550x/7d/1a/3f/7d1a3f77eee9f34782c6f88e97a6c888.jpg'}
-                                    alt="comment user pic"
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Typography variant='h6' sx={{ wordBreak: 'break-all' }}>georig@palsldoaskdaosdksadsaadsdasds</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography variant='body1' color='text.secondary'>Added: 17 oct 2035</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Rating name="read-only" value={3} readOnly />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant='h5' sx={{
-                            overflowWrap: 'break-word',
-                            wordBreak: 'break-all',
-                            // width: '80%',
-                            maxWidth: '1000px',
+                            // maxWidth: '1000px',
                             p: '10px'
                         }}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus debitis distinctio, sit voluptates quisquam, aspernatur impedit dolor unde eligendi aperiam error magni deserunt optio assumenda expedita amet vel. Corporis quia et veniam dolores a, labore eaque repellendus. Sunt odit quia fuga explicabo voluptatibus doloribus esse, asperiores, velit, earum tenetur veniam eos nisi laudantium temporibus illum quisquam saepe repellendus? Corrupti suscipit odit voluptas animi delectus unde veniam tempora aliquam fugit minima vel voluptatum excepturi maxime doloribus id iure iste accusamus ut maiores, nisi natus, velit optio quam quos. Necessitatibus esse, molestias minima eum laudantium error qui voluptate quidem, ex adipisci autem!

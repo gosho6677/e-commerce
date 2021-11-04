@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', isAuthorized(), createEditAction('create'));
-
 router.put('/edit/:productId', isOwner(), createEditAction('edit'));
 
 router.delete('/:productId', isOwner(), async (req, res) => {
@@ -20,6 +19,33 @@ router.delete('/:productId', isOwner(), async (req, res) => {
         await req.data.deleteProduct(productId);
 
         res.json({ ok: true });
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
+
+router.get('/:productId/reviews', async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        const reviews = await req.data.getAllReviews(productId);
+        res.json({ ok: true, reviews });
+    } catch (err) {
+        res.status(500).json({ ok: false, error: err.message });
+    }
+});
+
+router.post('/:productId/reviews', isAuthorized(), async (req, res) => {
+    try {
+        let productId = req.params.productId;
+        let creator = req.user._id;
+        let { comment, reviewRating } = req.body;
+
+        if (!comment || (reviewRating < 0 || reviewRating > 5)) {
+            throw new Error('Please provide correct data for review!');
+        }
+
+        const review = await req.data.createReview({ comment, reviewRating, productId, creator });
+        res.json({ ok: true, review });
     } catch (err) {
         res.status(400).json({ ok: false, error: err.message });
     }
