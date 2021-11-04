@@ -38,7 +38,7 @@ module.exports = () => async (req, res, next) => {
     if (tokenVerificationMessage === true) {
         next();
     } else if (tokenVerificationMessage === 'Access token expired!') {
-        return res.status(412).json({ ok: false, error: 'Access token expired!' });
+        return res.json({ ok: false, error: 'Access token expired!' });
     } else {
         return res.status(401).json({ ok: false, error: 'Session expired! Please try logging in again!' });
     }

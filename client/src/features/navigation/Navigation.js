@@ -15,6 +15,7 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import logo from '../../images/letter-t-bigger.png';
 import './Navigation.css';
 
@@ -113,11 +114,16 @@ const Navigation = () => {
                                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                                <MenuItem onClick={() => history.push('/my-orders')}>
-                                    <Avatar /> My orders
+                                <MenuItem>
+                                    <Avatar sx={{ marginRight: '7px' }} />
+                                    {user.email}
                                 </MenuItem>
                                 <MenuItem onClick={() => history.push('/my-listings')}>
-                                    <FormatListBulletedIcon sx={{ marginRight: '7px' }} /> My Listings
+                                    <FormatListBulletedIcon sx={{ marginRight: '7px' }} />
+                                    My Listings
+                                </MenuItem>
+                                <MenuItem onClick={() => history.push('/my-orders')}>
+                                    <LocalMallIcon sx={{ marginRight: '7px' }} /> My Orders
                                 </MenuItem>
                                 <MenuItem onClick={() => history.push('/my-sales')}>
                                     <AttachMoneyIcon sx={{ marginRight: '7px' }} /> My Sales

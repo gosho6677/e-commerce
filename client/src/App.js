@@ -44,7 +44,7 @@ const App = () => {
     useEffect(() => {
         const token = getAccessToken();
         const refreshToken = getRefreshToken();
-
+        // jwt_decode('asddads');
         if(token && refreshToken && userStatus === 'idle') {
             let user = jwt_decode(refreshToken);
             dispatch(loginOnReload(user));

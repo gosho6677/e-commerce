@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteItemThunk, selectItemById } from './itemsSlice';
 import { addToCartThunk, selectCartId } from '../cart/cartSlice';
 import { selectUserId } from '../auth/authSlice';
+import Review from './Review';
 
 const Details = ({ match, history }) => {
     const itemId = match.params.itemId;
@@ -40,34 +41,38 @@ const Details = ({ match, history }) => {
     };
 
     return (
-        <Paper elevation={3} className='details-container'>
-            <Box className='details-img-container'>
-                <img className='details-img' src={item?.imageUrl} alt='details' />
-            </Box>
-            <Box className='details-item-content'>
-                <Typography variant='h4' paragraph>{item?.name}</Typography>
-                <Divider />
-                {/* <Typography variant='h5'>Category: {item?.category}</Typography> */}
-                <Typography variant='h6' className='details-item-description'>
-                    Description: {item?.description}
-                </Typography>
-                <Divider />
-                <Stack direction='column' alignItems='center'>
-                    <Typography className='details-price'>${item?.price}</Typography>
+        <>
+            <Paper elevation={3} className='details-container'>
+                <Box className='details-img-container'>
+                    <img className='details-img' src={item?.imageUrl} alt='details' />
+                </Box>
+                <Box className='details-item-content'>
+                    <Typography variant='h4' paragraph>{item?.name}</Typography>
                     <Divider />
-                    {/* shows btns depending if user is logged(succeeded)/owner */}
-                    {status === 'succeeded'
-                        ? isOwner
-                            ? <Stack direction='row' gap='5px'>
-                                <Button onClick={deleteItemHandler} color='error' variant='contained'>Delete</Button>
-                                <Button onClick={editRedirectHandler} variant='contained'>Edit</Button>
-                            </Stack>
-                            : <Button onClick={addToCartHandler} variant='contained'>Add to cart</Button>
-                        : <Typography variant='h4' color='text.secondary' sx={{ textAlign: 'center' }}>If you want to purchase this product, please login or register.</Typography>
-                    }
-                </Stack>
-            </Box>
-        </Paper>
+                    {/* <Typography variant='h5'>Category: {item?.category}</Typography> */}
+                    <Typography variant='h6' className='details-item-description'>
+                        Description: {item?.description}
+                    </Typography>
+                    <Divider />
+                    <Stack direction='column' alignItems='center'>
+                        <Typography className='details-price'>${item?.price}</Typography>
+                        <Divider />
+                        {/* shows btns depending if user is logged(succeeded)/owner */}
+                        {status === 'succeeded'
+                            ? isOwner
+                                ? <Stack direction='row' gap='5px'>
+                                    <Button onClick={deleteItemHandler} color='error' variant='contained'>Delete</Button>
+                                    <Button onClick={editRedirectHandler} variant='contained'>Edit</Button>
+                                </Stack>
+                                : <Button onClick={addToCartHandler} variant='contained'>Add to cart</Button>
+                            : <Typography variant='h4' color='text.secondary' sx={{ textAlign: 'center' }}>If you want to purchase this product, please login or register.</Typography>
+                        }
+                    </Stack>
+                </Box>
+            </Paper>
+            
+            <Review />
+        </>
     );
 };
 

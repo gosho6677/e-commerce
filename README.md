@@ -42,7 +42,8 @@
 - [x] adjust token to be kept in local storage or cookie
 - [x] Check each component behaviour with the persisting auth
 - [x] fix on reload to fetch all items in store
-- [ ] add create review template in details page
-- [ ] add all reviews template in details page
+- [x] add create review template in details page
+- [x] add all reviews template in details page
 - [ ] add reviews controller, model, service 
 - [ ] add reviews slice, api
+- [ ] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)

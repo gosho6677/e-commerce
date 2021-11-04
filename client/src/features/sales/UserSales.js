@@ -32,6 +32,7 @@ const UserSales = () => {
 
     return (
         <TableContainer component={Paper} sx={{ width: '95%', margin: '10px auto' }}>
+            <Typography variant='h4' sx={{ textAlign: 'center' }}>My sales</Typography>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
