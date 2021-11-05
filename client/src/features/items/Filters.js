@@ -8,10 +8,12 @@ import Button from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTotalItems, sortByAction } from './itemsSlice';
 import { useEffect, useState } from 'react';
+import useDebounce from '../../hooks/useDebounce';
 
 const Filters = ({ searchQuery, setSearchQuery }) => {
     const [sortBy, setSortBy] = useState('name');
     const itemsLength = useSelector(selectTotalItems);
+    const debounce = useDebounce();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,8 +28,7 @@ const Filters = ({ searchQuery, setSearchQuery }) => {
                     id='standard-basic'
                     label='Search'
                     variant='standard'
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
+                    onChange={debounce(setSearchQuery)}
                 />
                 <Button></Button>
                 <Typography component='span'>Sort by:</Typography>

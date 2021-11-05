@@ -45,5 +45,8 @@
 - [x] add create review template in details page
 - [x] add all reviews template in details page
 - [x] add reviews controller, model, service 
-- [ ] add reviews slice, api
+- [x] add reviews slice, api
+- [ ] allow review owner to delete his comment
+- [ ] allow product owner to delete whichever review he wants
+- [ ] add average rating for product in details page
 - [ ] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)
