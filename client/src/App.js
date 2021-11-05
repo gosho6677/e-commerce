@@ -33,6 +33,7 @@ const App = () => {
     const cartError = useSelector(state => state.cart.error);
     const orderError = useSelector(state => state.orders.error);
     const salesError = useSelector(state => state.sales.error);
+    const reviewsError = useSelector(state => state.reviews.error);
     const itemsNotification = useSelector(state => state.items.notification);
     const dispatch = useDispatch();
 
@@ -62,13 +63,14 @@ const App = () => {
     return (
         <StyledEngineProvider injectFirst>
             <CssBaseline />
-            {(itemsError || userError || cartError || orderError || salesError)
+            {(itemsError || userError || cartError || orderError || salesError || reviewsError)
                 && <ErrorBox
                     itemsError={itemsError}
                     userError={userError}
                     cartError={cartError}
                     orderError={orderError}
                     salesError={salesError}
+                    reviewsError={reviewsError}
                 />
             }
             {itemsNotification && <SuccessBox message={itemsNotification} />}

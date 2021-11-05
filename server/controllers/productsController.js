@@ -24,7 +24,7 @@ router.delete('/:productId', isOwner(), async (req, res) => {
     }
 });
 
-router.get('/:productId/reviews', async (req, res) => {
+router.get('/reviews/:productId', async (req, res) => {
     try {
         const productId = req.params.productId;
         const reviews = await req.data.getAllReviews(productId);
@@ -34,7 +34,7 @@ router.get('/:productId/reviews', async (req, res) => {
     }
 });
 
-router.post('/:productId/reviews', isAuthorized(), async (req, res) => {
+router.post('/reviews/:productId', isAuthorized(), async (req, res) => {
     try {
         let productId = req.params.productId;
         let creator = req.user._id;

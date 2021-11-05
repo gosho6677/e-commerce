@@ -4,13 +4,21 @@ import { delAccessToken, delRefreshToken } from '../../utils/tokenService';
 import { forcedLogout, removeUserError } from '../auth/authSlice';
 import { removeCartError } from '../cart/cartSlice';
 import { removeItemError } from '../items/itemsSlice';
+import { removeReviewError } from '../items/reviews/reviewsSlice';
 import { removeOrderError } from '../orders/orderSlice';
 import { removeSalesError } from '../sales/salesSlice';
 import './ErrorBox.css';
 
 const expiredSessionError = 'Session expired! Please try logging in again!';
 
-const ErrorBox = ({ itemsError, userError, cartError, orderError, salesError }) => {
+const ErrorBox = ({
+    itemsError,
+    userError,
+    cartError,
+    orderError,
+    salesError,
+    reviewsError,
+}) => {
     const dispatch = useDispatch();
 
     // useEffect(() => {
@@ -25,16 +33,19 @@ const ErrorBox = ({ itemsError, userError, cartError, orderError, salesError }) 
     // }, [removeError, dispatch]);
 
     useEffect(() => {
-        if (itemsError === expiredSessionError ||
-            userError === expiredSessionError ||
-            cartError === expiredSessionError ||
-            salesError === expiredSessionError ||
-            orderError === expiredSessionError) {
+        if ([
+            itemsError,
+            userError,
+            cartError,
+            salesError,
+            orderError,
+            reviewsError,
+        ].includes(expiredSessionError)) {
             dispatch(forcedLogout());
             delRefreshToken();
             delAccessToken();
         }
-    }, [dispatch, itemsError, userError, cartError, orderError, salesError]);
+    }, [dispatch, itemsError, userError, cartError, orderError, salesError, reviewsError]);
 
     const errorHandler = () => {
         userError && dispatch(removeUserError());
@@ -42,6 +53,7 @@ const ErrorBox = ({ itemsError, userError, cartError, orderError, salesError }) 
         cartError && dispatch(removeCartError());
         orderError && dispatch(removeOrderError());
         salesError && dispatch(removeSalesError());
+        reviewsError && dispatch(removeReviewError());
     };
 
     return (

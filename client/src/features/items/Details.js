@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteItemThunk, selectItemById } from './itemsSlice';
 import { addToCartThunk, selectCartId } from '../cart/cartSlice';
 import { selectUserId } from '../auth/authSlice';
-import Review from './Review';
+import Reviews from './reviews/Reviews';
 
 const Details = ({ match, history }) => {
     const itemId = match.params.itemId;
@@ -71,7 +71,7 @@ const Details = ({ match, history }) => {
                 </Box>
             </Paper>
             
-            <Review />
+            <Reviews />
         </>
     );
 };
