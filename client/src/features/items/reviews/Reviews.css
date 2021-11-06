@@ -25,3 +25,7 @@
 }
 
 /* reviews */
+.delete-icon:hover {
+    color: rgb(104, 104, 104);
+    cursor: pointer;
+}

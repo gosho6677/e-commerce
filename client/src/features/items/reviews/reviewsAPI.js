@@ -12,3 +12,8 @@ export const createReview = async ({ comment, reviewRating, itemId }) => {
     const url = `${baseUrl}/${itemId}`;
     return jsonRequest(url, 'POST', { comment, reviewRating }, true);
 };
+
+export const deleteReview = async (reviewId) => {
+    const url = `${baseUrl}/${reviewId}`;
+    return jsonRequest(url, 'DELETE', undefined, true);
+};

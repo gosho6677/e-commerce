@@ -63,6 +63,7 @@ const ErrorBox = ({
             {cartError && cartError}
             {orderError && orderError}
             {salesError && salesError}
+            {reviewsError && reviewsError}
         </div>
     );
 };

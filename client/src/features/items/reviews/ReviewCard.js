@@ -1,21 +1,38 @@
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const ReviewCard = ({ comment, reviewRating, creator, createdAt }) => {
+const ReviewCard = ({
+    comment,
+    reviewRating,
+    creator,
+    createdAt,
+    deleteReviewHandler,
+    isOwner
+}) => {
 
     return (
         <Grid item>
             <Grid container direction='row' justifyContent='flex-start' sx={{ border: '1px solid lightgray' }}>
                 <Grid item>
-                    <Grid container direction='column' sx={{ p: '10px', m: '10px', width: '250px' }}>
+                    <Grid container direction='column' sx={{ p: '10px', m: '10px', width: '200px' }}>
                         <Grid item>
-                            <Avatar
-                                sx={{ width: 60, height: 60 }}
-                                srcSet={creator.imageUrl}
-                                alt="comment user pic"
-                            />
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Avatar
+                                    sx={{ width: 60, height: 60 }}
+                                    srcSet={creator.imageUrl}
+                                    alt="comment user pic"
+                                />
+                                {isOwner && (
+                                    <Tooltip title='Delete' disableInteractive>
+                                        <DeleteIcon onClick={deleteReviewHandler} className='delete-icon' />
+                                    </Tooltip>
+                                )}
+                            </Stack>
                         </Grid>
                         <Grid item>
                             <Typography variant='h6' sx={{ wordBreak: 'break-all' }}>

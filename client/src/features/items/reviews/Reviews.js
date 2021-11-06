@@ -6,13 +6,15 @@ import './Reviews.css';
 import { useDispatch, useSelector } from 'react-redux';
 import ReviewCard from './ReviewCard';
 import ReviewCreate from './ReviewCreate';
-import { getAllReviewsThunk, selectAllReviews } from './reviewsSlice';
+import { deleteReviewThunk, getAllReviewsThunk, selectAllReviews } from './reviewsSlice';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { selectUserId } from '../../auth/authSlice';
 
 
 const Review = () => {
     const reviews = useSelector(selectAllReviews);
+    const userId = useSelector(selectUserId);
     const userStatus = useSelector(state => state.user.status);
     const { itemId } = useParams();
     const dispatch = useDispatch();
@@ -20,6 +22,11 @@ const Review = () => {
     useEffect(() => {
         dispatch(getAllReviewsThunk(itemId));
     }, [dispatch, itemId]);
+
+    // it will get .bind when passed to prop and event becomes second param
+    const deleteReviewHandler = (reviewId, e) => {
+        dispatch(deleteReviewThunk(reviewId));
+    };
 
     return (
         <Paper elevation={3} className='reviews-container'>
@@ -36,7 +43,14 @@ const Review = () => {
             {/* reviews container */}
             <Grid container direction='column' justifyContent='center' m='10px' gap='10px'>
                 {reviews.length
-                    ? reviews.map(r => <ReviewCard key={r._id} {...r} />)
+                    ? reviews.map(r => (
+                        <ReviewCard
+                            key={r._id}
+                            deleteReviewHandler={deleteReviewHandler.bind(null, r._id)}
+                            isOwner={userId === r.creator._id}
+                            {...r}
+                        />
+                    ))
                     : <Typography variant='h4' textAlign='center'>No reviews for this product yet...</Typography>
                 }
             </Grid>

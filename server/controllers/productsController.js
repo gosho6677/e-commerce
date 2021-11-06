@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { isAuthorized, isOwner } = require('../middlewares/guards');
 
+// products
 router.get('/', async (req, res) => {
     try {
         const products = await req.data.getAllProducts();
@@ -24,6 +25,7 @@ router.delete('/:productId', isOwner(), async (req, res) => {
     }
 });
 
+// product reviews
 router.get('/reviews/:productId', async (req, res) => {
     try {
         const productId = req.params.productId;
@@ -48,6 +50,20 @@ router.post('/reviews/:productId', isAuthorized(), async (req, res) => {
         res.json({ ok: true, review });
     } catch (err) {
         res.status(400).json({ ok: false, error: err.message });
+    }
+});
+
+router.delete('/reviews/:reviewId', isAuthorized(), async (req, res) => {
+    try {
+        const reviewId = req.params.reviewId;
+        const userId = req.user._id;
+
+        // if deletedCount is 0 returns ok:false 
+        // meaning either id didn't match or wrong user sends this delete request!
+        const deletedCount = await req.data.deleteReview(userId, reviewId);
+        res.json({ ok: !!deletedCount, reviewId });
+    } catch (err) {
+        res.status(500).json({ ok: false, error: err.message });
     }
 });
 

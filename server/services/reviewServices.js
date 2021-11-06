@@ -11,7 +11,13 @@ const createReview = async (body) => {
     return review.populate('creator');
 };
 
+const deleteReview = async (userId, reviewId) => {
+    const { deletedCount } = await Review.deleteOne({ _id: reviewId, creator: userId });
+    return deletedCount;
+};
+
 module.exports = {
     getAllReviews,
     createReview,
+    deleteReview,
 };

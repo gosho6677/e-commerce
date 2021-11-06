@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const Review = require('../models/Review');
 
 const getAllProducts = async () => {
     return await Product.find({});
@@ -20,7 +21,8 @@ const editProduct = async (payload, productId) => {
 };
 
 const deleteProduct = async (productId) => {
-    return await Product.findByIdAndDelete(productId);
+    // delete product and its reviews!
+    return await Promise.all([Product.findByIdAndDelete(productId), Review.deleteMany({ productId })]);
 };
 
 module.exports = {

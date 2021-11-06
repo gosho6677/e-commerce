@@ -1,5 +1,5 @@
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
-import { createReview, getAllReviews } from './reviewsAPI';
+import { createReview, deleteReview, getAllReviews } from './reviewsAPI';
 
 const reviewsAdapter = createEntityAdapter({
     selectId: review => review._id
@@ -20,7 +20,7 @@ export const getAllReviewsThunk = createAsyncThunk(
         if (!resp.ok) {
             throw new Error(resp.error);
         }
-        
+
         return resp.reviews;
     }
 );
@@ -44,6 +44,19 @@ export const createReviewThunk = createAsyncThunk(
         }
 
         return resp.review;
+    }
+);
+
+export const deleteReviewThunk = createAsyncThunk(
+    'reviews/delete',
+    async (reviewId) => {
+        const resp = await deleteReview(reviewId);
+
+        if (!resp.ok) {
+            throw new Error(resp.error);
+        }
+
+        return resp.reviewId;
     }
 );
 
@@ -83,6 +96,19 @@ const reviewsSlice = createSlice({
                 reviewsAdapter.setOne(state, action.payload);
             })
             .addCase(createReviewThunk.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.error.message || '';
+            });
+
+        builder
+            .addCase(deleteReviewThunk.pending, state => {
+                state.status = 'loading';
+            })
+            .addCase(deleteReviewThunk.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                reviewsAdapter.removeOne(state, action.payload);
+            })
+            .addCase(deleteReviewThunk.rejected, (state, action) => {
                 state.status = 'error';
                 state.error = action.error.message || '';
             });

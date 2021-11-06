@@ -46,7 +46,8 @@
 - [x] add all reviews template in details page
 - [x] add reviews controller, model, service 
 - [x] add reviews slice, api
-- [ ] allow review owner to delete his comment
-- [ ] allow product owner to delete whichever review he wants
+- [x] add debounce on search items
+- [x] allow review owner to delete his comment
+- [ ] allow product owner to delete whichever review he wants(optional since irl owner can delete bad reviews which results in false advertisement)
 - [ ] add average rating for product in details page
 - [ ] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)
