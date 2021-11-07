@@ -11,6 +11,8 @@ import { deleteItemThunk, selectItemById } from './itemsSlice';
 import { addToCartThunk, selectCartId } from '../cart/cartSlice';
 import { selectUserId } from '../auth/authSlice';
 import Reviews from './reviews/Reviews';
+import { useState } from 'react';
+import DeleteItemModal from './DeleteItemModal';
 
 const Details = ({ match, history }) => {
     const itemId = match.params.itemId;
@@ -20,8 +22,10 @@ const Details = ({ match, history }) => {
     const item = useSelector(state => selectItemById(state, itemId));
     const isOwner = (item && userId) ? item.creatorId === userId : null;
     const dispatch = useDispatch();
+    // state for modal
+    const [isOpen, setIsOpen] = useState(false);
 
-    const addToCartHandler = e => {
+    const addToCartHandler = () => {
         dispatch(addToCartThunk({
             cartId,
             productOwner: item.creatorId,
@@ -31,17 +35,27 @@ const Details = ({ match, history }) => {
         history.push('/cart');
     };
 
-    const editRedirectHandler = e => {
+    const editRedirectHandler = () => {
         history.push(`/items/edit/${itemId}`);
     };
 
-    const deleteItemHandler = e => {
-        dispatch(deleteItemThunk(itemId));
-        history.push('/');
+    const deleteItemHandler = () => {
+        dispatch(deleteItemThunk(itemId))
+            .then(res => {
+                if(res.error) return;
+                setIsOpen(false);
+                history.push('/');
+            });
     };
 
     return (
         <>
+            <DeleteItemModal
+                deleteItemHandler={deleteItemHandler}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+            />
+
             <Paper elevation={3} className='details-container'>
                 <Box className='details-img-container'>
                     <img className='details-img' src={item?.imageUrl} alt='details' />
@@ -61,7 +75,7 @@ const Details = ({ match, history }) => {
                         {status === 'succeeded'
                             ? isOwner
                                 ? <Stack direction='row' gap='5px'>
-                                    <Button onClick={deleteItemHandler} color='error' variant='contained'>Delete</Button>
+                                    <Button onClick={() => setIsOpen(true)} color='error' variant='contained'>Delete</Button>
                                     <Button onClick={editRedirectHandler} variant='contained'>Edit</Button>
                                 </Stack>
                                 : <Button onClick={addToCartHandler} variant='contained'>Add to cart</Button>
@@ -70,7 +84,7 @@ const Details = ({ match, history }) => {
                     </Stack>
                 </Box>
             </Paper>
-            
+
             <Reviews />
         </>
     );
