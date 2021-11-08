@@ -115,9 +115,20 @@ const reviewsSlice = createSlice({
     }
 });
 
+export const selectAverageRating = state => {
+    if(state.reviews.status !== 'idle') {
+        let reviews = Object.values(state.reviews.entities);
+
+        return reviews.reduce((acc, curr) => {
+            return acc + Number(curr.reviewRating);
+        }, 0) / reviews.length;
+    };
+};
+
 export const {
     selectAll: selectAllReviews,
     selectById: selectReviewById,
+    selectTotal: selectTotalReviews
 } = reviewsAdapter.getSelectors(state => state.reviews);
 export const { removeReviewError, removeNotification } = reviewsSlice.actions;
 export default reviewsSlice.reducer;

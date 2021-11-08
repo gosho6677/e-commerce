@@ -4,15 +4,17 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Rating from '@mui/material/Rating';
 import './Details.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteItemThunk, selectItemById } from './itemsSlice';
 import { addToCartThunk, selectCartId } from '../cart/cartSlice';
 import { selectUserId } from '../auth/authSlice';
-import Reviews from './reviews/Reviews';
 import { useState } from 'react';
+import Reviews from './reviews/Reviews';
 import DeleteItemModal from './DeleteItemModal';
+import { selectAverageRating, selectTotalReviews } from './reviews/reviewsSlice';
 
 const Details = ({ match, history }) => {
     const itemId = match.params.itemId;
@@ -20,6 +22,8 @@ const Details = ({ match, history }) => {
     const cartId = useSelector(selectCartId);
     const status = useSelector(state => state.user.status);
     const item = useSelector(state => selectItemById(state, itemId));
+    const averageRating = useSelector(selectAverageRating);
+    const totalReviews = useSelector(selectTotalReviews);
     const isOwner = (item && userId) ? item.creatorId === userId : null;
     const dispatch = useDispatch();
     // state for modal
@@ -42,7 +46,7 @@ const Details = ({ match, history }) => {
     const deleteItemHandler = () => {
         dispatch(deleteItemThunk(itemId))
             .then(res => {
-                if(res.error) return;
+                if (res.error) return;
                 setIsOpen(false);
                 history.push('/');
             });
@@ -62,6 +66,17 @@ const Details = ({ match, history }) => {
                 </Box>
                 <Box className='details-item-content'>
                     <Typography variant='h4' paragraph>{item?.name}</Typography>
+
+                    {averageRating
+                        ? <>
+                            <Rating value={averageRating} readOnly precision={0.10} />
+                            <Typography variant='body1' sx={{ display: 'inline', verticalAlign: 'top' }}>
+                                <b>{averageRating}</b> (<i>{totalReviews} reviews</i>)
+                            </Typography>
+                        </>
+                        : null
+                    }
+
                     <Divider />
                     {/* <Typography variant='h5'>Category: {item?.category}</Typography> */}
                     <Typography variant='h6' className='details-item-description'>
