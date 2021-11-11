@@ -1,3 +1,13 @@
+# Tech store
+An e-commerce app which allows users to publish their own products for sale or order already published ones. Each product owner can edit/delete his post and check if any of his products have been purchased. Also, each user can make reviews on products, which means to comment and rate an existing product.
+
+# Technologies
+ - React
+ - Redux Toolkit
+ - Material UI
+ - Node with Express JS
+ - MongoDB
+
 # TODO LIST
 - [x] Authentication with JWT
 - [x] Main page template
@@ -50,4 +60,4 @@
 - [x] allow review owner to delete his comment
 - [ ] allow product owner to delete whichever review he wants(optional since irl owner can delete bad reviews which results in false advertisement)
 - [x] add average rating for product in details page
-- [ ] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)
+- [x] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)

@@ -24,6 +24,7 @@ import { getAccessToken, getRefreshToken } from './utils/tokenService';
 import jwt_decode from 'jwt-decode';
 import { loginOnReload } from './features/auth/authSlice';
 import useGetItemsIfIdle from './hooks/useGetItemsIfIdle';
+import ErrorBoundary from './features/errors/ErrorBoundary';
 
 const App = () => {
     const userStatus = useSelector(state => state.user.status);
@@ -46,7 +47,7 @@ const App = () => {
         const token = getAccessToken();
         const refreshToken = getRefreshToken();
         // jwt_decode('asddads');
-        if(token && refreshToken && userStatus === 'idle') {
+        if (token && refreshToken && userStatus === 'idle') {
             let user = jwt_decode(refreshToken);
             dispatch(loginOnReload(user));
         }
@@ -75,20 +76,22 @@ const App = () => {
             }
             {itemsNotification && <SuccessBox message={itemsNotification} />}
             <Navigation />
-            <Switch>
-                <Route path='/' exact component={Dashboard} />
-                <Route path='/category/:category' exact component={Dashboard} />
-                <Route path='/my-orders' exact component={isAuth(Orders)} />
-                <Route path='/my-listings' exact component={isAuth(UserListings)} />
-                <Route path='/my-sales' exact component={isAuth(UserSales)} />
-                <Route path='/cart' exact component={isAuth(Cart)} />
-                <Route path='/items/create' exact component={isAuth(Create)} />
-                <Route path='/items/edit/:itemId' exact component={isAuth(Edit)} />
-                <Route path='/items/details/:itemId' exact component={Details} />
-                <Route path='/auth/login' exact component={Login} />
-                <Route path='/auth/register' exact component={Register} />
-                <Route path='*' render={() => <h1 style={{ textAlign: 'center' }}>Page not found...</h1>} />
-            </Switch>
+            <ErrorBoundary>
+                <Switch>
+                    <Route path='/' exact component={Dashboard} />
+                    <Route path='/category/:category' exact component={Dashboard} />
+                    <Route path='/my-orders' exact component={isAuth(Orders)} />
+                    <Route path='/my-listings' exact component={isAuth(UserListings)} />
+                    <Route path='/my-sales' exact component={isAuth(UserSales)} />
+                    <Route path='/cart' exact component={isAuth(Cart)} />
+                    <Route path='/items/create' exact component={isAuth(Create)} />
+                    <Route path='/items/edit/:itemId' exact component={isAuth(Edit)} />
+                    <Route path='/items/details/:itemId' exact component={Details} />
+                    <Route path='/auth/login' exact component={Login} />
+                    <Route path='/auth/register' exact component={Register} />
+                    <Route path='*' render={() => <h1 style={{ textAlign: 'center' }}>Page not found...</h1>} />
+                </Switch>
+            </ErrorBoundary>
         </StyledEngineProvider>
     );
 };
