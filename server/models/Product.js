@@ -7,6 +7,6 @@ const schema = new Schema({
     price: { type: Number, required: true },
     imageUrl: { type: String, required: true },
     creatorId: { type: Schema.Types.ObjectId, ref: 'User' },
-});
+}, { timestamps: true });
 
 module.exports = model('Product', schema);

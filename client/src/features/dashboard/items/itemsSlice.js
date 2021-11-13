@@ -92,6 +92,14 @@ export const itemsSlice = createSlice({
                 state.ids.sort((a, b) => {
                     return entities[a].name.localeCompare(entities[b].name);
                 });
+            } else if (action.payload === 'newest') {
+                state.ids.sort((a, b) => {
+                    return new Date(entities[b].createdAt).getTime() - new Date(entities[a].createdAt).getTime();
+                });
+            } else if (action.payload === 'oldest') {
+                state.ids.sort((a, b) => {
+                    return new Date(entities[a].createdAt).getTime() - new Date(entities[b].createdAt).getTime();
+                });
             } else {
                 return;
             }

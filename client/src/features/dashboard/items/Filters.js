@@ -37,6 +37,8 @@ const Filters = ({ searchQuery, setSearchQuery }) => {
                     onChange={(e) => setSortBy(e.target.value)}
                 >
                     <MenuItem value='name'>Name</MenuItem>
+                    <MenuItem value='newest'>Newest</MenuItem>
+                    <MenuItem value='oldest'>Oldest</MenuItem>
                     <MenuItem value='lowestPrice'>Lowest price</MenuItem>
                     <MenuItem value='highestPrice'>Highest price</MenuItem>
                 </Select>
