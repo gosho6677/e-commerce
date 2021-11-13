@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { DATABASE_URL } = require('./index');
+const { CONNECTION_STRING } = require('./index');
 
-module.exports = () => mongoose.connect(DATABASE_URL, {
+module.exports = () => mongoose.connect(CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
