@@ -61,5 +61,5 @@ An e-commerce app which allows users to publish their own products for sale or o
 - [x] add average rating for product in details page
 - [x] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)
 - [ ] fix error messages in create/edit
-- [ ] add FE pagination
-- [ ] change Product model to have timestamps and give sort option to newest -> oldest
+- [x] add FE pagination
+- [x] change Product model to have timestamps and give sort option to newest -> oldest

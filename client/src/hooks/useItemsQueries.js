@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { selectAllItems } from "../features/dashboard/items/itemsSlice";
+import usePagination from "./usePagination";
 
 const useItemsQueries = () => {
     const { category } = useParams();
     const [searchQuery, setSearchQuery] = useState('');
+    // use pagination hook here to track changes inside this hook
+    const { page, totalPages, handlePageChange, getPaginatedItems } = usePagination();
+
     const items = useSelector(state => {
         let result = [];
         let entities = state.items.entities;
         if (category) {
             // remove the 's' (phones => phone)
             let categoryParam = category.slice(0, -1);
-            
+
             state.items.ids.forEach(x => {
                 if (entities[x].category === categoryParam) {
                     result.push(entities[x]);
@@ -31,7 +34,7 @@ const useItemsQueries = () => {
             }
         }
         if (!result.length && !searchQuery) {
-            result = selectAllItems(state);
+            result = getPaginatedItems(state);
         }
 
         return result;
@@ -41,6 +44,9 @@ const useItemsQueries = () => {
         items,
         searchQuery,
         setSearchQuery,
+        page,
+        totalPages,
+        handlePageChange,
     };
 };
 

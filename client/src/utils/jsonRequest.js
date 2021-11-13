@@ -1,4 +1,5 @@
 import { getAccessToken, setAccessToken, getRefreshToken } from "./tokenService";
+import { apiDomain } from "../constants";
 
 export async function jsonRequest(url, method, body, isAuthorized) {
     if (method === undefined) {
@@ -24,19 +25,11 @@ export async function jsonRequest(url, method, body, isAuthorized) {
     }
 
     let response = await fetch(url, options);
-    if (!response.ok) {
-        // let message = await response.text();
-        // throw new Error(`${response.status}: ${response.statusText}\n${message}`);
-        // console.log(`${response.status}`);
-        // if(response.status === 401) {
-        //     return await logout();
-        // }
-    }
 
     let result = await response.json();
 
     if (!result.ok && result.error === 'Access token expired!') {
-        let resp = await fetch('http://localhost:5000/auth/refresh', {
+        let resp = await fetch(`${apiDomain}/auth/refresh`, {
             headers: {
                 'X-Authorization': getRefreshToken()
             }
