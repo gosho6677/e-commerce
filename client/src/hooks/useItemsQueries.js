@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { selectAllItems } from "../features/items/itemsSlice";
+import { selectAllItems } from "../features/dashboard/items/itemsSlice";
 
-// non optimized search and category query
-// change later
 const useItemsQueries = () => {
     const { category } = useParams();
     const [searchQuery, setSearchQuery] = useState('');

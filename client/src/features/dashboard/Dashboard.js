@@ -2,7 +2,7 @@ import Container from '@mui/material/Container';
 import './Dashboard.css';
 
 import Categories from "./Categories";
-import Items from '../items/Items';
+import Items from './items/Items';
 import { useSelector } from 'react-redux';
 import LoadingSpinner from '../loading/LoadingSpinner';
 

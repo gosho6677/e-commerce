@@ -9,8 +9,8 @@ import './Details.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteItemThunk, selectItemById } from './itemsSlice';
-import { addToCartThunk, selectCartId } from '../cart/cartSlice';
-import { selectUserId } from '../auth/authSlice';
+import { addToCartThunk, selectCartId } from '../../cart/cartSlice';
+import { selectUserId } from '../../auth/authSlice';
 import { useState } from 'react';
 import Reviews from './reviews/Reviews';
 import DeleteItemModal from './DeleteItemModal';

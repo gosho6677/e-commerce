@@ -2,7 +2,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { forwardRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeNotification } from '../items/itemsSlice';
+import { removeNotification } from '../dashboard/items/itemsSlice';
 
 const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

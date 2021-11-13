@@ -6,7 +6,7 @@ import './Items.css';
 import Filters from './Filters';
 import ItemCard from './ItemCard';
 import { useSelector } from 'react-redux';
-import useItemsQueries from '../../hooks/useItemsQueries';
+import useItemsQueries from '../../../hooks/useItemsQueries';
 
 const Items = () => {
     const status = useSelector(state => state.items.status);

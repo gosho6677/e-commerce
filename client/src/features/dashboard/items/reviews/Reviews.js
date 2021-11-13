@@ -9,7 +9,7 @@ import ReviewCreate from './ReviewCreate';
 import { deleteReviewThunk, getAllReviewsThunk, selectAllReviews } from './reviewsSlice';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { selectUserId } from '../../auth/authSlice';
+import { selectUserId } from '../../../auth/authSlice';
 
 
 const Review = () => {

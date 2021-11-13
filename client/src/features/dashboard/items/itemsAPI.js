@@ -1,5 +1,5 @@
-import { apiDomain } from '../../constants';
-import { jsonRequest } from '../../utils/jsonRequest';
+import { apiDomain } from '../../../constants';
+import { jsonRequest } from '../../../utils/jsonRequest';
 
 const baseUrl = `${apiDomain}/products`;
 

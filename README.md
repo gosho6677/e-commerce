@@ -58,6 +58,5 @@ An e-commerce app which allows users to publish their own products for sale or o
 - [x] add reviews slice, api
 - [x] add debounce on search items
 - [x] allow review owner to delete his comment
-- [ ] allow product owner to delete whichever review he wants(optional since irl owner can delete bad reviews which results in false advertisement)
 - [x] add average rating for product in details page
 - [x] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)
