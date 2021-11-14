@@ -8,6 +8,10 @@ An e-commerce app which allows users to publish their own products for sale or o
  - Node with Express JS
  - MongoDB
 
+# Demo
+[Link](https://tech-store-new.netlify.app/)
+FE is deployed on Netlify, BE on Heroku
+
 # TODO LIST
 - [x] Authentication with JWT
 - [x] Main page template
