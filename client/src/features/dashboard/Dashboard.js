@@ -16,7 +16,6 @@ const Dashboard = () => {
     return (
         <Container component='main' className='dashboard-container'>
             <Categories />
-            <Categories />
             <Items />
         </Container>
     );
