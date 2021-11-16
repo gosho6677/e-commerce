@@ -27,11 +27,27 @@ export const getAllItemsThunk = createAsyncThunk(
 
 export const createItemThunk = createAsyncThunk(
     'items/create',
-    async (body) => {
-        let { name, description, category, price, imageUrl } = body;
+    async ({ name, description, category, price, imageUrl }) => {
+        let errors = [];
 
-        if (!name || description.length < 5 || !category || price < 0 || !imageUrl.startsWith('https://')) {
-            throw new Error('All fields are required!');
+        if (!name) {
+            errors.push('Name is required!');
+        }
+        if (description.length < 5) {
+            errors.push('Description must be atleast 5 characters!');
+        }
+        if (!category) {
+            errors.push('Please choose a category!');
+        }
+        if (price <= 0) {
+            errors.push('Price must be a valid positive number!');
+        }
+        if (!imageUrl.startsWith('https://')) {
+            errors.push('Please provide a valid image URL!');
+        }
+
+        if (errors.length) {
+            throw new Error(errors.join('\n'));
         }
 
         const resp = await createItem({ name, description, category, price, imageUrl });
@@ -45,11 +61,27 @@ export const createItemThunk = createAsyncThunk(
 
 export const editItemThunk = createAsyncThunk(
     'items/edit',
-    async (body) => {
-        let { name, description, category, price, imageUrl, productId } = body;
+    async ({ name, description, category, price, imageUrl, productId }) => {
+        let errors = [];
 
-        if (!name || description.length < 5 || !category || price < 0 || !imageUrl.startsWith('https://')) {
-            throw new Error('All fields are required!');
+        if (!name) {
+            errors.push('Name is required!');
+        }
+        if (description.length < 5) {
+            errors.push('Description must be atleast 5 characters!');
+        }
+        if (!category) {
+            errors.push('Please choose a category!');
+        }
+        if (price <= 0) {
+            errors.push('Price must be a valid positive number!');
+        }
+        if (!imageUrl.startsWith('https://')) {
+            errors.push('Please provide a valid image URL!');
+        }
+
+        if (errors.length) {
+            throw new Error(errors.join('\n'));
         }
 
         const resp = await editItem({ name, description, category, price, imageUrl }, productId);

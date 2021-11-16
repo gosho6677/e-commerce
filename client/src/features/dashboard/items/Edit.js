@@ -6,11 +6,11 @@ import { editItemThunk, selectItemById } from "./itemsSlice";
 const Edit = ({ match, history }) => {
     const itemId = match.params.itemId;
     const item = useSelector(state => selectItemById(state, itemId));
-    const [name, setName] = useState(item.name || '');
-    const [category, setCategory] = useState(item.category || '');
-    const [price, setPrice] = useState(item.price || '');
-    const [imageUrl, setImageUrl] = useState(item.imageUrl || '');
-    const [description, setDescription] = useState(item.description || '');
+    const [name, setName] = useState(item?.name || '');
+    const [category, setCategory] = useState(item?.category || '');
+    const [price, setPrice] = useState(item?.price || '');
+    const [imageUrl, setImageUrl] = useState(item?.imageUrl || '');
+    const [description, setDescription] = useState(item?.description || '');
     const dispatch = useDispatch();
 
     const editItemHandler = e => {
