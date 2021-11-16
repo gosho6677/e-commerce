@@ -1,4 +1,8 @@
-import { useEffect } from 'react';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Typography from "@mui/material/Typography";
+
+import { forwardRef, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { delAccessToken, delRefreshToken } from '../../utils/tokenService';
 import { forcedLogout, removeUserError } from '../auth/authSlice';
@@ -11,6 +15,10 @@ import './ErrorBox.css';
 
 const expiredSessionError = 'Session expired! Please try logging in again!';
 
+const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const ErrorBox = ({
     itemsError,
     userError,
@@ -20,17 +28,7 @@ const ErrorBox = ({
     reviewsError,
 }) => {
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     const timeOut = setTimeout(() => {
-    //         dispatch(removeError());
-    //     }, 10000);
-
-    //     return () => {
-    //         dispatch(removeError());
-    //         clearTimeout(timeOut);
-    //     };
-    // }, [removeError, dispatch]);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if ([
@@ -47,24 +45,48 @@ const ErrorBox = ({
         }
     }, [dispatch, itemsError, userError, cartError, orderError, salesError, reviewsError]);
 
-    const errorHandler = () => {
+    useEffect(() => {
+        if (itemsError ||
+            userError ||
+            cartError ||
+            salesError ||
+            orderError ||
+            reviewsError) {
+            setOpen(true);
+        }
+
+        return () => setOpen(false);
+    }, [itemsError, userError, cartError, orderError, salesError, reviewsError]);
+
+    const closeErrorBox = (e, reason) => {
+        if (reason === "clickaway") return;
+
         userError && dispatch(removeUserError());
         itemsError && dispatch(removeItemError());
         cartError && dispatch(removeCartError());
         orderError && dispatch(removeOrderError());
         salesError && dispatch(removeSalesError());
         reviewsError && dispatch(removeReviewError());
+
+        setOpen(false);
     };
 
     return (
-        <div onClick={errorHandler} className="error">
-            {itemsError && itemsError}
-            {userError && userError}
-            {cartError && cartError}
-            {orderError && orderError}
-            {salesError && salesError}
-            {reviewsError && reviewsError}
-        </div>
+        <Snackbar
+            open={open}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            autoHideDuration={20000}
+            onClose={closeErrorBox}
+        >
+            <Alert onClose={closeErrorBox} severity="error" sx={{ width: "100%", whiteSpace: 'pre-line' }}>
+                {itemsError && itemsError}
+                {userError && userError}
+                {cartError && cartError}
+                {orderError && orderError}
+                {salesError && salesError}
+                {reviewsError && reviewsError}
+            </Alert>
+        </Snackbar>
     );
 };
 

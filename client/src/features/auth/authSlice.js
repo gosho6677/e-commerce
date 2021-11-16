@@ -10,19 +10,24 @@ const initialState = {
 
 export const registerThunk = createAsyncThunk(
     'user/register',
-    async (userDetails) => {
-        let { email, password, rePass, imageUrl } = userDetails;
+    async ({ email, password, rePass, imageUrl }) => {
+        let errors = [];
+
         if (!(/^[a-zA-Z]+@[a-z]{2,}\.[a-z]{2,4}$/.test(email))) {
-            throw new Error('Please provide a valid email!');
+            errors.push('Please provide a valid email!');
         }
-        if (!email || !password) {
-            throw new Error('All fields are required!');
+        if (password.length < 5) {
+            errors.push('Password must be atleast 5 characters!');
         }
         if (password !== rePass) {
-            throw new Error('Passwords must match!');
+            errors.push('Passwords must match!');
         }
         if (!(/https?:\/\//.test(imageUrl))) {
-            throw new Error('Image must be a valid URL!');
+            errors.push('Image must be a valid URL!');
+        }
+
+        if (errors.length) {
+            throw new Error(errors.join('\n'));
         }
 
         const resp = await register({ email, password, imageUrl });
@@ -32,13 +37,18 @@ export const registerThunk = createAsyncThunk(
 
 export const loginThunk = createAsyncThunk(
     'user/login',
-    async (userDetails) => {
-        let { email, password } = userDetails;
-        if (!email || !password) {
-            throw new Error('All fields are required!');
+    async ({ email, password }) => {
+        let errors = [];
+        if (!(/^[a-zA-Z]+@[a-z]{2,}\.[a-z]{2,4}$/.test(email))) {
+            errors.push('Please provide a valid email!');
         }
-
-        const resp = await login(userDetails);
+        if (!password || password.length < 5) {
+            errors.push('Password length must be atleast 5 characters!');
+        }
+        if (errors.length) {
+            throw new Error(errors.join('\n'));
+        }
+        const resp = await login({ email, password });
         return jwt_decode(resp.token);
     }
 );
@@ -92,7 +102,7 @@ export const authSlice = createSlice({
             })
             .addCase(loginThunk.rejected, (state, action) => {
                 state.status = 'error';
-                state.error = 'Invalid credentials!';
+                state.error = action.error.message;
             });
 
         builder
