@@ -1,20 +1,31 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createItemThunk } from './itemsSlice';
 import CreateEditForm from './CreateEditForm';
 import './Create.css';
+import useFormControls from '../../../hooks/useFormControls';
 
 const Create = ({ history }) => {
-    const [name, setName] = useState('');
-    const [category, setCategory] = useState('phone');
-    const [price, setPrice] = useState(0);
-    const [imageUrl, setImageUrl] = useState('');
-    const [description, setDescription] = useState('');
     const dispatch = useDispatch();
+    const {
+        name, setName,
+        category, setCategory,
+        price, setPrice,
+        imageUrl, setImageUrl,
+        description, setDescription,
+        validationHandler,
+    } = useFormControls();
 
     const createItemHandler = e => {
         e.preventDefault();
-        dispatch(createItemThunk({ name, category, price, imageUrl, description }))
+        if (name.error || price.error || imageUrl.error || description.error) return;
+
+        dispatch(createItemThunk({
+            name: name.value,
+            price: price.value,
+            imageUrl: imageUrl.value,
+            description: description.value,
+            category,
+        }))
             .then((res) => {
                 if (res.error) {
                     return;
@@ -38,6 +49,7 @@ const Create = ({ history }) => {
             setImageUrl={setImageUrl}
             description={description}
             setDescription={setDescription}
+            validationHandler={validationHandler}
         />
     );
 };
