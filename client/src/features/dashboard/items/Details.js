@@ -71,7 +71,7 @@ const Details = ({ match, history }) => {
                         ? <>
                             <Rating value={averageRating} readOnly precision={0.10} />
                             <Typography variant='body1' sx={{ display: 'inline', verticalAlign: 'top' }}>
-                                <b>{averageRating}</b> (<i>{totalReviews} reviews</i>)
+                                <b>{averageRating.toFixed(2)}</b> (<i>{totalReviews} reviews</i>)
                             </Typography>
                         </>
                         : null

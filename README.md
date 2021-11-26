@@ -64,6 +64,8 @@ FE is deployed on Netlify, BE on Heroku
 - [x] allow review owner to delete his comment
 - [x] add average rating for product in details page
 - [x] add error boundary (one reason is if jwt_decode (App component) is used with non valid token or other data type)
-- [ ] fix error messages in create/edit
+- [x] fix error messages in create/edit
 - [x] add FE pagination
 - [x] change Product model to have timestamps and give sort option to newest -> oldest
+- [x] change edit/create item validation
+- [ ] change login/register validation

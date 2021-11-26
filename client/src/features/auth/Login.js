@@ -6,11 +6,13 @@ import TextField from '@mui/material/TextField';
 import './auth.css';
 
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginThunk } from './authSlice';
 import useIsGuest from '../../hooks/useIsGuest';
+import LoadingSpinner from '../loading/LoadingSpinner';
 
 const Login = ({ history }) => {
+    const userStatus = useSelector(state => state.user.status);
     const dispatch = useDispatch();
     useIsGuest();
 
@@ -19,8 +21,13 @@ const Login = ({ history }) => {
 
         const email = e.target.email.value;
         const password = e.target.password.value;
+
         dispatch(loginThunk({ email, password }));
     };
+
+    if(userStatus === 'loading') {
+        return <LoadingSpinner />;
+    }
 
     return (
         <Paper elevation={3} component='section' className='login-register-section'>
