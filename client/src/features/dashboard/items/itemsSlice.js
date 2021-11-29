@@ -1,4 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import sortItems from "../../../utils/sortItems";
 import { createItem, deleteItem, editItem, getAllItems } from "./itemsAPI";
 
 const itemsAdapter = createEntityAdapter({
@@ -77,30 +78,7 @@ export const itemsSlice = createSlice({
     initialState,
     reducers: {
         sortByAction: (state, action) => {
-            let entities = state.entities;
-            if (action.payload === 'lowestPrice') {
-                state.ids.sort((a, b) => {
-                    return entities[a].price - entities[b].price;
-                });
-            } else if (action.payload === 'highestPrice') {
-                state.ids.sort((a, b) => {
-                    return entities[b].price - entities[a].price;
-                });
-            } else if (action.payload === 'name') {
-                state.ids.sort((a, b) => {
-                    return entities[a].name.localeCompare(entities[b].name);
-                });
-            } else if (action.payload === 'newest') {
-                state.ids.sort((a, b) => {
-                    return new Date(entities[b].createdAt).getTime() - new Date(entities[a].createdAt).getTime();
-                });
-            } else if (action.payload === 'oldest') {
-                state.ids.sort((a, b) => {
-                    return new Date(entities[a].createdAt).getTime() - new Date(entities[b].createdAt).getTime();
-                });
-            } else {
-                return;
-            }
+            sortItems[action.payload](state);
         },
         removeItemError: state => {
             state.status = state.ids.length ? 'succeeded' : 'idle';
