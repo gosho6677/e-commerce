@@ -1,3 +1,23 @@
+# Table of contents
+- [Table of contents](#table-of-contents)
+- [Tech store](#tech-store)
+- [Technologies](#technologies)
+- [Demo](#demo)
+- [Project overview](#project-overview)
+    - [Catalog page](#catalog-page)
+    - [Details page](#details-page)
+    - [Reviews](#reviews)
+    - [Register page](#register-page)
+    - [Create page](#create-page)
+    - [Edit page](#edit-page)
+    - [Cart page](#cart-page)
+    - [Shipping details](#shipping-details)
+    - [Order summary](#order-summary)
+    - [My orders page](#my-orders-page)
+    - [My listings](#my-listings)
+    - [My sales](#my-sales)
+- [TODO LIST](#todo-list)
+
 # Tech store
 An e-commerce app which allows users to publish their own products for sale or order already published ones. Each product owner can edit/delete his post and check if any of his products have been purchased. Also, each user can make reviews on products, which means to comment and rate an existing product.
 
@@ -11,6 +31,68 @@ An e-commerce app which allows users to publish their own products for sale or o
 # Demo
 [Link](https://tech-store-new.netlify.app/)
 FE is deployed on Netlify, BE on Heroku
+
+# Project overview
+
+### Catalog page
+![catalog page](https://www.dropbox.com/s/3dsuhz8qrjyo325/catalog.png?raw=1)
+
+Provides a view for all listings, you can search, sort by category and other options. Also depending whether you are logged in or not, pages have different options available.
+
+### Details page
+![details page](https://www.dropbox.com/s/wwys49nejwhrj46/details_owner.png?raw=1)
+
+Has description of the selected item, on the screenshot is the owner view, so owner can edit and delete his offer. If user isn't owner and is logged in can purchase the selected item.
+
+### Reviews
+![reviews](https://www.dropbox.com/s/d942nfn1c5tk3ts/reviews.png?raw=1)
+
+On the details page of a selected item logged in users can write a review for it.
+
+### Register page
+![register](https://www.dropbox.com/s/gxuabcuxjheh2nk/register.png?raw=1)
+
+Simple regsiter form.
+
+### Create page
+![create](https://www.dropbox.com/s/8hj12oa3trh1539/create.png?raw=1)
+
+Create offer and showing example error handling.
+
+### Edit page
+![edit page](https://www.dropbox.com/s/qqi6vqe4nvo83mn/edit.png?raw=1)
+
+Owner can edit his listing by following provided validations.
+
+### Cart page
+![cart](https://www.dropbox.com/s/dd8lsz1xny8bmvy/my-cart.png?raw=1)
+
+After selecting couple items thats the 1st step of the purchasing process.
+
+### Shipping details
+![ship details](https://www.dropbox.com/s/o6ukhynzxi4kj8x/shipping-details.png?raw=1)
+
+Followed by providing your details.
+
+### Order summary
+![summary](https://www.dropbox.com/s/7aoia9iw5rbc29s/order-summary.png?raw=1)
+
+Last stage before purchasing, you need to confirm the details.
+
+### My orders page
+![my orders](https://www.dropbox.com/s/ge5bembxxorol8s/my-orders.png?raw=1)
+
+You can check your orders.
+
+### My listings
+![my listings](https://www.dropbox.com/s/mmuz1z5qkqzo9c4/my-listings.png?raw=1)
+
+User current listings.
+
+### My sales
+![my sales](https://www.dropbox.com/s/kcn3hh3ku4luyhg/my-sales.png?raw=1)
+
+User can confirm his pending item sales.
 
 # TODO LIST
 - [x] Authentication with JWT
