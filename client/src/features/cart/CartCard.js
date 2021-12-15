@@ -34,13 +34,18 @@ const CartCard = ({ item, cartId }) => {
             <Card className='cart-item-card'>
                 <CardMedia
                     component="img"
-                    sx={{ maxWidth: '250px', m: 1 }}
+                    sx={{ maxWidth: '250px', height: '250px', m: 1, objectFit: 'contain' }}
                     image={item.product.imageUrl}
                     alt="Cart item"
                 />
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <CardContent>
-                        <Typography component="div" variant="h5" marginBottom='5px'>
+                        <Typography
+                            component="div"
+                            variant="h5"
+                            marginBottom='5px'
+                            sx={{ wordBreak: 'break-all', width: '100%', maxWidth: '350px' }}
+                        >
                             {item.product.name}
                         </Typography>
                         <Typography variant="subtitle1" color="text.secondary" marginBottom='5px' component="div">

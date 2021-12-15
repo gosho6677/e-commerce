@@ -1,9 +1,11 @@
 .create-container {
-    width: 80%;
+    width: 90%;
+    max-width: 600px;
     margin: 10px auto;
     display: flex;
     justify-content: center;
     align-content: center;
+    padding: 5px;
 }
 
 .create-box {
@@ -17,6 +19,7 @@
 
 .create-title {
     text-align: center;
+    margin-top: 10px;
 }
 
 .create-textarea {
@@ -24,6 +27,6 @@
 }
 
 .create-btn {
-    margin-bottom: .5rem;
+    margin-bottom: 20px;
     height: 56px;
 }

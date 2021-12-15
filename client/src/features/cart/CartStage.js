@@ -22,7 +22,7 @@ const CartStage = ({ setStage }) => {
     return (
         <Paper elevation={3} className='cart-container'>
             <Grid container direction='column' className='cart-item-container'>
-                {cart.items.length
+                {cart?.items.length
                     ? cart.items.map(c => <CartCard item={c} key={c.product._id} cartId={cart._id} />)
                     : <Typography variant='h3'>No items in the cart yet!</Typography>
                 }
@@ -30,8 +30,8 @@ const CartStage = ({ setStage }) => {
             <Box className='cart-checkout'>
                 <Stack direction='column'>
                     <Typography variant='h5' className='cart-item-price'>{cart?.items?.length} products</Typography>
-                    <Typography variant='h5' className='cart-total-price'>Total: ${cart.bill}</Typography>
-                    {cart.items.length
+                    <Typography variant='h5' className='cart-total-price'>Total: ${cart?.bill}</Typography>
+                    {cart?.items.length
                         ? <Button onClick={() => setStage(2)} variant='contained'>Proceed</Button>
                         : null
                     }
