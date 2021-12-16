@@ -7,7 +7,7 @@ const useItemsQueries = () => {
     const { category } = useParams();
     const [searchQuery, setSearchQuery] = useState('');
     // use pagination hook here to track changes inside this hook
-    const { page, totalPages, handlePageChange, getPaginatedItems } = usePagination();
+    const { page, totalPages, handlePageChange, getPaginatedItems, getItemsWithSearchQuery } = usePagination();
 
     const items = useSelector(state => {
         let result = [];
@@ -35,6 +35,10 @@ const useItemsQueries = () => {
         }
         if (!result.length && !searchQuery) {
             result = getPaginatedItems(state);
+        }
+
+        if(result.length && searchQuery) {
+            result = getItemsWithSearchQuery(result);
         }
 
         return result;
